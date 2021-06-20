@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Course = require('./course.model');
+const {Course, CourseSchema} = require('./course.model');
 
 const UserSchema = new Schema({
-    _id: {
-        type: String,
-        required: true
-    },
     firstName: {
         type: String,
         required: true
@@ -16,19 +12,19 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    // email: {
-    //     type: String,
-    //     unique: true,
-    //     required: true,
-    // },
-    // password: {
-    //     type: String,
-    //     required: true
-    // },
-    // schedule: {
-    //     type: [Course],
-    //     required: true
-    // },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    schedule: {
+        type: [CourseSchema],
+        required: false
+    },
     dateReg: {
         type: Date,
         default: Date.now
