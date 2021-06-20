@@ -8,7 +8,8 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_ACCESS, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 })
     .then(() => { console.log("Successfully connected to Mongo DB")})
     .catch(err => { console.log (`Database error: ${err}`)})
