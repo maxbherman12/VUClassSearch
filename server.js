@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const app = express();
 
@@ -16,6 +17,9 @@ mongoose.connect(process.env.MONGO_ACCESS, {
 
 //use built in body parser
 app.use(express.json());
+
+//allow cross origin resource sharing
+app.use(cors())
 
 //use routes
 const usersRoutes = require('./routes/users.routes');

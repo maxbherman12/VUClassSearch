@@ -1,0 +1,9 @@
+.name-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-input{
+    width: 45%;
+}
