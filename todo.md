@@ -1,4 +1,4 @@
-### TODO Max
+### TODO: Max
 
 - [ ] Sign Up Page
     - [X] Set up component / basic css
@@ -21,7 +21,7 @@
     - [ ] Figure out how to have different pages for each course
  
 
-### TODO Matt
+### TODO: Matt
 
 - [ ] Write a good middleware function for courses
 - [ ] Enabling OAuth and signin
