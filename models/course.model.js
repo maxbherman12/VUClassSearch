@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const {User, UserSchema} = require('./user.model');
+
 const CourseSchema = new Schema({
     department: {
         type: String,
@@ -12,6 +14,10 @@ const CourseSchema = new Schema({
     },
     professor: {
         type: String,
+        required: true
+    },
+    students : {
+        type: [UserSchema],
         required: true
     }
     // startTime: {
