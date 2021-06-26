@@ -27,7 +27,7 @@ class SignUp extends React.Component{
         const {firstName, lastName, email, password, confirmPassword} = this.state;
 
         //should add in some password checking function for making strong passwords as well
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             alert("Passwords don't match")
         }
 
@@ -110,7 +110,7 @@ class SignUp extends React.Component{
                         required
                     />
                     {/* Replace button with custom button */}
-                    <button onSubmit={this.handleSubmit}>Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         )

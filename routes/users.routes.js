@@ -56,4 +56,10 @@ router.delete('/:id', (req,res) => {
         .then(res.send(`Successfully deleted user ${req.params.id}`))
 })
 
+//ONLY USE TO RESET DATABASE DURING TESTING
+router.delete('/', (req, res) => {
+    User.deleteMany({})
+        .then(resp => res.send(resp))
+})
+
 module.exports = router;

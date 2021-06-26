@@ -1,0 +1,15 @@
+.course{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.course-input{
+    width: 45%;
+}
+
+.days{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+}
