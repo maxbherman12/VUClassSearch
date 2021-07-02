@@ -2,10 +2,22 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const session = require("express-session");
+const passport = require("passport");
+
 
 const app = express();
 
 dotenv.config();
+
+app.use(session({
+    secret: "Our little secret.",
+    resave: false,
+    saveUninitialized: false
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
 mongoose.connect(process.env.MONGO_ACCESS, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -15,11 +27,30 @@ mongoose.connect(process.env.MONGO_ACCESS, {
     .then(() => { console.log("Successfully connected to Mongo DB")})
     .catch(err => { console.log (`Database error: ${err}`)})
 
+mongoose.set('returnOriginal', false)
+
 //use built in body parser
 app.use(express.json());
 
 //allow cross origin resource sharing
 app.use(cors())
+
+//auth routes
+app.get("/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get("/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
+  function(req, res) {
+    // Successful authentication, redirect secrets.
+    const redirectUrl = `http://localhost:3000?id=${req.user.googleId}`
+    res.redirect(redirectUrl);
+  });
+
+app.get("/logout", function(req, res){
+    res.redirect("http://localhost:3000");
+});
 
 //use routes
 const usersRoutes = require('./routes/users.routes');

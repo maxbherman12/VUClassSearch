@@ -39,12 +39,13 @@ class EnrollForm extends React.Component{
         const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = this.state;
         event.preventDefault();
         
-        //include logic that checks to see if input is valid
+        let userId = 510;
 
         //TODO: add logic so that if this course already exists then user is simply added to the students list
+        //TODO: add logic to handle 
         axios({
             method: "POST",
-            url: "http://localhost:8080/api/courses",
+            url: `http://localhost:8080/api/courses/${userId}`,
             data: {
                 department: department.trim().toUpperCase(),
                 number: number,

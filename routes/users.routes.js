@@ -15,6 +15,8 @@ const removePersonalData = user => {
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
+        email: user.email,
+        imgUrl: user.imgUrl,
         schedule: user.schedule
     }
     return cleanUser;
@@ -30,8 +32,15 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).send(err))
 });
 
-router.get('/:id', (req, res) => {
-    User.findById(req.params.id)
+// router.get('/:id', (req, res) => {
+//     User.findById(req.params.id)
+//         .then(user => {res.send(removePersonalData(user))})
+//         .catch(err => res.status(401).send(err))
+// })
+
+//get by googleId
+router.get('/:googleId', (req, res) => {
+    User.findOne({googleId: req.params.googleId})
         .then(user => {res.send(removePersonalData(user))})
         .catch(err => res.status(401).send(err))
 })
@@ -45,7 +54,7 @@ router.post('/', (req, res) => {
 
 //PUT Routes
 router.put('/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    User.findByIdAndUpdate(req.params.id, req.body)
         .then(updatedUser => res.send(removePersonalData(updatedUser)))
         .catch(err => res.status(403).send(err))
 })
@@ -59,7 +68,10 @@ router.delete('/:id', (req,res) => {
 //ONLY USE TO RESET DATABASE DURING TESTING
 router.delete('/', (req, res) => {
     User.deleteMany({})
-        .then(resp => res.send(resp))
+        .then(resp => res.send({
+            message: `Successfully deleted ${resp.deletedCount} record${resp.deletedCount != 1 ? "s" : ""}`
+        }))
+        .catch(err => console.log(err))
 })
 
 module.exports = router;

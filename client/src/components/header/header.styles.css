@@ -1,0 +1,46 @@
+.header{
+    min-height: 8vh;
+    background: -webkit-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); 
+    background: -moz-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); background: linear-gradient(360deg, #1C1C1C 10%, #494949 360%);
+    padding: 0 2.5vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-container{
+    width: 60vw;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+}
+
+.logo-container .link{
+    text-decoration: none;
+    color: var(--white);
+}
+
+.link-container{
+    width: 25vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link-container .link{
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--white);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.link:hover{
+    opacity: .9;
+}
+
+.profile-pic{
+    height: 80%;
+    width: auto;
+    border-radius: 50%;
+}

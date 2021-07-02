@@ -2,6 +2,7 @@ import React from 'react'
 import './signup.styles.css'
 
 import FormInput from '../form-input/form-input.component'
+import CustomButton from '../custom-button/custom-buttom.component'
 
 import axios from 'axios'
 
@@ -43,7 +44,6 @@ class SignUp extends React.Component{
                 }
             })
                 .then(res => console.log(res))
-                .catch(err => console.log(err))
         } catch (error) {
             alert(error)
         }
@@ -62,6 +62,7 @@ class SignUp extends React.Component{
         const {firstName, lastName, email, password, confirmPassword} = this.state;
         return(
             <div className="sign-up">
+                <h1>Sign Up</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="name-container">
                         <div className="name-input">
@@ -109,8 +110,9 @@ class SignUp extends React.Component{
                         label='Confirm Password'
                         required
                     />
-                    {/* Replace button with custom button */}
-                    <button type="submit">Submit</button>
+                    <div className="button-container">
+                        <CustomButton type="submit">Sign Up</CustomButton>
+                    </div>
                 </form>
             </div>
         )

@@ -1,3 +1,10 @@
 .signin-page{
-    padding: 5vh 10vw;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.signin-page .form{
+    margin-top: 10vh;
+    width: 35vw;
 }

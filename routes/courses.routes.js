@@ -46,15 +46,35 @@ router.get('/:id', (req, res) => {
         .catch(err => {console.log(err)})
 })
 
-router.post('/', async (req, res) => {
+router.get('/:id/students', (req, res) => {
+    Course.findById(req.params.id)
+        .then(course => res.send(course.students))
+        .catch(err => {console.log(err)})
+})
+
+router.post('/:studentId', async (req, res) => {
     const validStr = await validateCourse(req.body);
     if(validStr === "valid"){
         Course.create(req.body)
-        .then(course => res.send(course))
-        .catch(err => console.log(err))
+            .then(course => res.send(course))
+            .catch(err => console.log(err))
     }
     else if(validStr === "exists"){
-        //add user to the existing course
+        let newStudents = []
+        let courseId;
+
+        await Course.findOne(req.body)
+            .then(course => {
+                newStudents = course.students
+                courseId = course._id
+            })
+            .catch(err => {console.log(err)})
+
+        newStudents.push(req.params.studentId)
+
+        Course.findByIdAndUpdate(courseId, {students: newStudents})
+            .then(updatedCourse => res.send(updatedCourse))
+            .catch(err => res.send(err))
     }
     else{
         res.status(400).send(validStr)
