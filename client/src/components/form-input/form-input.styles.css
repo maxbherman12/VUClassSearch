@@ -1,6 +1,7 @@
 .group {
     position: relative;
     padding-top: 30px;
+    overflow: hidden;
 }
 .group .form-input {
     background: none;

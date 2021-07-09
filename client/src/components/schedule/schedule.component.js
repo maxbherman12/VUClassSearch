@@ -5,9 +5,12 @@ import CoursePrev from '../course-prev/course-prev.component'
 
 const Schedule = ({courseList}) => (
     <div className="schedule">
-        {
-            courseList.map(course => <CoursePrev name={course.name}/>)
-        }
+        <h2>My Schedule</h2>
+        <div className="courses">
+            {
+                courseList.map(c => <CoursePrev course={c}/>)
+            }
+        </div>
     </div>
 )
 

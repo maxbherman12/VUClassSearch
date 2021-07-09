@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import FormInput from '../form-input/form-input.component';
 import Checkbox from '../checkbox/checkbox.component';
+import CustomButton from '../custom-button/custom-buttom.component'
 
 class EnrollForm extends React.Component{
     constructor(){
@@ -35,14 +36,14 @@ class EnrollForm extends React.Component{
         this.setState({[name]: checked})
     }
 
-    handleSubmit = event => {
+    handleSubmit = (event) => {
         const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = this.state;
         event.preventDefault();
         
-        let userId = 510;
+        let userId = "60df762957af2407f2b2b3fd";
+        let courseId;
 
         //TODO: add logic so that if this course already exists then user is simply added to the students list
-        //TODO: add logic to handle 
         axios({
             method: "POST",
             url: `http://localhost:8080/api/courses/${userId}`,
@@ -61,19 +62,27 @@ class EnrollForm extends React.Component{
                 sunday: sunday
             }
         })
-            .then(res => console.log(res))
+            .then(res =>  {
+                courseId = res._id
+                console.log(res)
+                axios({
+                    method: "PUT",
+                    url: `http://localhost:8080/api/users/${userId}/${courseId}`
+                })
+                    .then(resp => console.log("updated user:", resp))
+                    .catch(err => alert(err.response.data))
+            })
             .catch(err => alert(err.response.data))
-            // .catch(err => console.log(err.response.data))
 
-        //TODO: Add route for adding a student to a course's list of students
         //TODO: Add route for adding a course to a students course list
+
     }
 
     render(){
         const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = this.state;
         return(
             <div className="enroll-form">
-                <h2>Enroll Course</h2>
+                <h2>Add a course</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="course">
                         <div className="course-input">
@@ -105,24 +114,24 @@ class EnrollForm extends React.Component{
                         label="Professor Surname"
                         required
                     />
-
-                    <label htmlFor="startTime">Start Time: </label>
-                    <input 
-                        type="time"
-                        name="startTime"
-                        value={startTime}
-                        onChange={this.handleChange}
-                        required
-                    />
-                    <br />
-                    <label htmlFor="endTime">End Time: </label>
-                    <input 
-                        type="time"
-                        name="endTime"
-                        value={endTime}
-                        onChange={this.handleChange}
-                        required
-                    />
+                    <div className="time">
+                        <label htmlFor="startTime">Start Time: </label>
+                        <input 
+                            type="time"
+                            name="startTime"
+                            value={startTime}
+                            onChange={this.handleChange}
+                            required
+                        />
+                        <label htmlFor="endTime">End Time: </label>
+                        <input 
+                            type="time"
+                            name="endTime"
+                            value={endTime}
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
                     <div className="days">
                         <Checkbox
                             name="monday"
@@ -167,7 +176,7 @@ class EnrollForm extends React.Component{
                             onChange={this.handleCheck}
                         />
                     </div>
-                    <input type="submit"/>
+                    <CustomButton type="submit">Add Course</CustomButton>
                 </form>
             </div>
         )

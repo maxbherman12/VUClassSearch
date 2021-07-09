@@ -3,14 +3,20 @@ import './App.css';
 
 import {Switch, Route, Redirect} from 'react-router-dom'
 import axios from 'axios'
+import {withCookies, Cookies} from 'react-cookie'
 
 import SignInPage from './pages/signin/signin.page';
 import EnrollPage from './pages/enroll/enroll.page';
 import SchedulePage from './pages/schedule/schedule.page';
+import CoursePage from './pages/course/course.page';
 
 import Header from './components/header/header.component'
 
 class App extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired()
+  }
+
   constructor(){
     super();
     
@@ -25,6 +31,7 @@ class App extends React.Component {
   }
 
   async componentDidMount(){
+    /*
     let queryString = window.location.search
     let urlParams = new URLSearchParams(queryString)
     const googleId = urlParams.get('id')
@@ -46,6 +53,8 @@ class App extends React.Component {
         })
         .then(() => console.log("state: ", this.state))
     }
+    */
+   console.log(Cookies.get('token'))
   }
 
   render(){
@@ -56,7 +65,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={()=>(<h1>HOME</h1>)}></Route>
             <Route path="/enroll" component={EnrollPage}></Route>
-            <Route path="/schedule" component={SchedulePage}></Route>
+            <Route path="/course" component={CoursePage}></Route>
+            <Route path="/schedule" render={() => <SchedulePage schedule={this.state.schedule}/>}></Route>
             <Route exact path='/signin' render={() => this.state.currentUser ? (<Redirect to='/' />) : (<SignInPage/>)}/>
           </Switch>
         </div>
@@ -65,4 +75,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withCookies(App);

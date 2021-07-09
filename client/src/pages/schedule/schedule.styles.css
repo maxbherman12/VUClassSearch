@@ -1,0 +1,11 @@
+.schedule-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh;
+}
+
+.schedule-page a{
+    text-decoration: none;
+}

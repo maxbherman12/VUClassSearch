@@ -59,6 +59,25 @@ router.put('/:id', (req, res) => {
         .catch(err => res.status(403).send(err))
 })
 
+router.put('/:userId/:courseId', async (req, res) => {
+    let updatedSchedule = []
+
+    await User.findById(req.params.userId)
+        .then(user => {
+            updatedSchedule = user.schedule
+        })
+
+    if(updatedSchedule.includes(req.params.courseId)){
+        updatedSchedule.push(req.params.courseId)
+        User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
+            .then(updatedUser => res.send(updatedUser))
+    }
+    else{
+        res.status(400).send("Course already exists")
+    }
+})
+
+//DELETE Routes
 router.delete('/:id', (req,res) => {
     User.findByIdAndDelete(req.params.id)
         .catch(err => res.status(404).send(err))

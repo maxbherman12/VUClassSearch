@@ -53,6 +53,7 @@ router.get('/:id/students', (req, res) => {
 })
 
 router.post('/:studentId', async (req, res) => {
+    console.log(req)
     const validStr = await validateCourse(req.body);
     if(validStr === "valid"){
         Course.create(req.body)
@@ -60,7 +61,7 @@ router.post('/:studentId', async (req, res) => {
             .catch(err => console.log(err))
     }
     else if(validStr === "exists"){
-        let newStudents = []
+        let updatedStudents = []
         let courseId;
 
         await Course.findOne(req.body)
@@ -70,9 +71,9 @@ router.post('/:studentId', async (req, res) => {
             })
             .catch(err => {console.log(err)})
 
-        newStudents.push(req.params.studentId)
+        updatedStudents.push(req.params.studentId)
 
-        Course.findByIdAndUpdate(courseId, {students: newStudents})
+        Course.findByIdAndUpdate(courseId, {students: updatedStudents})
             .then(updatedCourse => res.send(updatedCourse))
             .catch(err => res.send(err))
     }

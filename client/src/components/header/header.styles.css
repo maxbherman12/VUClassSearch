@@ -1,5 +1,5 @@
 .header{
-    min-height: 8vh;
+    height: 10vh;
     background: -webkit-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); 
     background: -moz-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); background: linear-gradient(360deg, #1C1C1C 10%, #494949 360%);
     padding: 0 2.5vw;
@@ -28,7 +28,7 @@
 
 .link-container .link{
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-weight: 600;
     color: var(--white);
     text-transform: uppercase;
@@ -40,7 +40,12 @@
 }
 
 .profile-pic{
-    height: 80%;
+    height: 70%;
     width: auto;
     border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-pic:hover{
+    opacity: .9;
 }

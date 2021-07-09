@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const session = require("express-session");
 const passport = require("passport");
+const jwt = require('jsonwebtoken')
 
 
 const app = express();
@@ -44,8 +45,17 @@ app.get("/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
   function(req, res) {
     // Successful authentication, redirect secrets.
-    const redirectUrl = `http://localhost:3000?id=${req.user.googleId}`
-    res.redirect(redirectUrl);
+    let minsToExp = 60;
+    let token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (minsToExp * 60),
+      user: req.user
+    }, 'secret')
+
+    res.cookie("token", token, {httpOnly:false})
+    res.redirect('http://localhost:3000')    
+    //OLD sending via url param
+    //const redirectUrl = `http://localhost:3000?id=${req.user.googleId}`
+    //res.redirect(redirectUrl);
   });
 
 app.get("/logout", function(req, res){

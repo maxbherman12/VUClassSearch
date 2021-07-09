@@ -16,10 +16,7 @@ const UserSchema = new Schema({
     googleId: String,
     secret: String,
     imgUrl: String,
-    schedule: {
-        type: [CourseSchema],
-        required: false
-    },
+    schedule: [String],
     dateReg: {
         type: Date,
         default: Date.now
