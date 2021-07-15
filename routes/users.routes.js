@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken')
 
 const User = require('../models/user.model')
+const Course = require('../models/course.model')
 
 /**
  * removePersonalData()
@@ -32,16 +34,10 @@ router.get('/', (req, res) => {
         .catch(err => res.status(400).send(err))
 });
 
-// router.get('/:id', (req, res) => {
-//     User.findById(req.params.id)
-//         .then(user => {res.send(removePersonalData(user))})
-//         .catch(err => res.status(401).send(err))
-// })
-
-//get by googleId
-router.get('/:googleId', (req, res) => {
-    User.findOne({googleId: req.params.googleId})
-        .then(user => {res.send(removePersonalData(user))})
+//get by id
+router.get('/:id', (req, res) => {
+    User.findOne({_id: req.params.id})
+        .then(user => {res.send(user)})
         .catch(err => res.status(401).send(err))
 })
 
@@ -59,6 +55,28 @@ router.put('/:id', (req, res) => {
         .catch(err => res.status(403).send(err))
 })
 
+router.put('/unenroll/:userId/:courseId', async (req, res) => {
+    let updatedSchedule = []
+
+    await User.findById(req.params.userId)
+        .then(user => {
+            updatedSchedule = user.schedule
+        })
+
+    let index = updatedSchedule.findIndex(el => el._id === req.params.courseId)
+    if(index > -1){
+        updatedSchedule.splice(index, 1)
+
+        User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
+            .then(updatedUser => {
+                res.send(updatedUser)
+            })
+    }
+    else{
+        res.status(400).send("This course does not exist in your schedule")
+    }
+})
+
 router.put('/:userId/:courseId', async (req, res) => {
     let updatedSchedule = []
 
@@ -67,14 +85,44 @@ router.put('/:userId/:courseId', async (req, res) => {
             updatedSchedule = user.schedule
         })
 
-    if(updatedSchedule.includes(req.params.courseId)){
-        updatedSchedule.push(req.params.courseId)
+    if(!updatedSchedule.find(course => course._id === req.params.courseId)){
+        let addedCourse = new Course();
+        await Course.findById(req.params.courseId)
+            .then(course => {
+                addedCourse = course;
+            })
+            .catch(err => console.log(err))
+        
+        updatedSchedule.push(addedCourse)
+
         User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
-            .then(updatedUser => res.send(updatedUser))
+            .then(updatedUser => {
+                res.send(updatedUser)
+            })
     }
     else{
-        res.status(400).send("Course already exists")
+        res.status(400).send("This course already exists in your schedule")
     }
+})
+
+//clear user schedule
+//TODO: FIX
+router.put('/clear-schedule/:userId', async (req, res) => {
+    let updatedSchedule = []
+    await User.findById(req.params.userId)
+        .then(user => {
+            updatedSchedule = user.schedule
+        })
+
+    let count = 1
+    while(updatedSchedule.pop()){
+        console.log(count++)
+    }
+
+    User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
+            .then(updatedUser => {
+                res.send(updatedUser)
+            })
 })
 
 //DELETE Routes

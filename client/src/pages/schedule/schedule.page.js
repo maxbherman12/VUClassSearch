@@ -1,21 +1,22 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
+import { UserContext } from '../../App'
+
 import './schedule.styles.css'
 
-import axios from 'axios';
 import {Link} from 'react-router-dom'
 
 import Schedule from '../../components/schedule/schedule.component'
 import LoadingAnimation from '../../components/loading-animation/loading-animation.component'
 import CustomButton from '../../components/custom-button/custom-buttom.component'
 
-const mockSchedule = [
+const dummySchedule = [
     {
-        _id: "123455",
+        _id:"60eb27247cafd40e6c37935b",
         department: "CS",
         number: 2201,
         professor: "Roth",
-        startTime: "10:00",
-        endTime: "10:50",
+        startTime: "10:20",
+        endTime: "11:10",
         monday: true,
         tuesday: false,
         wednesday: true,
@@ -25,70 +26,57 @@ const mockSchedule = [
         sunday: false
     },
     {
-        _id: "34890529",
+        _id:"60eb27917cafd40e6c37936b",
+        department: "CS",
+        number: 3251,
+        professor: "Hemmingway",
+        startTime: "11:30",
+        endTime: "12:20",
+        monday: true,
+        tuesday: false,
+        wednesday: true,
+        thursday: false,
+        friday: true,
+        saturday: false,
+        sunday: false
+    },
+    {
+        _id:"60eb328a6873af10698ab8d1",
         department: "CSET",
         number: 2100,
         professor: "Ornes",
         startTime: "9:35",
-        endTime: "10:50",
+        endTime: "12:15",
         monday: false,
         tuesday: true,
         wednesday: false,
-        thursday: true,
+        thursday: false,
         friday: false,
         saturday: false,
         sunday: false
     },
-    {
-        _id: "9w948453",
-        department: "CS",
-        number: 3251,
-        professor: "Hemmingway",
-        startTime: "13:00",
-        endTime: "13:50",
-        monday: true,
-        tuesday: false,
-        wednesday: true,
-        thursday: false,
-        friday: true,
-        saturday: false,
-        sunday: false
-    }
 ]
 
-class SchedulePage extends React.Component{
-    constructor({schedule}){
-        super();
-        this.state = {
-            schedule: mockSchedule
-        }
-    }
+const SchedulePage = () => {
+    const {user, setUser} = useContext(UserContext);
 
-    // componentDidMount(){
-    //     axios({
-    //         method: "GET",
-    //         url: `http://localhost:8080/api/users/${userId}/schedule`
-    //     })
-    //         .then(sched => {
-    //             this.setState({schedule: sched})
-    //         })
-    //         .catch(err => console.log(err))
-    // }
-
-    render(){
-        return(
+    return(
         <div className="schedule-page">
             {
-                this.state.schedule.length > 0 ? 
-                <Schedule courseList={this.state.schedule}/>
-                :
-                <LoadingAnimation/>
+                user ?
+                (
+                    user.schedule.length > 0 ? 
+                    <Schedule courseList={user.schedule}/>
+                    :
+                    <LoadingAnimation/>
+                )
+                : <p>You need to login to access this page</p>
             }
             <Link to="/enroll">
                 <CustomButton>Add Courses</CustomButton>
             </Link>
         </div>
-        )
-    }
+    )
 }
+
 export default SchedulePage;

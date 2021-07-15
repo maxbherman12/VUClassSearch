@@ -6,7 +6,7 @@ const StudentList = ({students}) => (
         {
             students.map(student => (
                 <div className="student">
-                    <h3>{student}</h3>
+                    <h3>{`${student.firstName} ${student.lastName}`}</h3>
                 </div>
             ))
         }

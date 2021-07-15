@@ -4,14 +4,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: rgba(200, 200, 200, .5);
+    background-color: rgba(200, 200, 200, .7);
     margin: 0;
-    /* padding-right: 10px; */
     border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+    border-right: rgba(0, 0, 0, 0.1) 1px solid;
 }
 
 .menu-item:hover{
-    background-color: rgba(200, 200, 200, .8);
+    background-color: rgba(200, 200, 200, 1);
 }
 
 .menu-link{

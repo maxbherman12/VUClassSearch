@@ -1,5 +1,9 @@
 .course-prev{
-    width: 100%;
+    display: flex;
+}
+
+.course-info{
+    width: 90%;
     display: flex;
     justify-content: space-between;
     background-color: grey;
@@ -10,12 +14,19 @@
     color: black;
 }
 
-.course-prev:hover{
+.course-info:hover{
     opacity: .9;
     transform: scale(1.005);
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
-.course-prev .date-time{
+.course-info .date-time{
     text-align: right;
+}
+
+.remove-btn{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,78 +1,56 @@
-import React from 'react'
+import React, {createContext, useEffect, useState} from 'react'
 import './App.css';
 
-import {Switch, Route, Redirect} from 'react-router-dom'
-import axios from 'axios'
-import {withCookies, Cookies} from 'react-cookie'
+import {Switch, Route} from 'react-router-dom'
+import {api as axios} from './utils/axios.utils'
 
-import SignInPage from './pages/signin/signin.page';
-import EnrollPage from './pages/enroll/enroll.page';
-import SchedulePage from './pages/schedule/schedule.page';
 import CoursePage from './pages/course/course.page';
+import EnrollPage from './pages/enroll/enroll.page';
+import HomePage from './pages/home/home.page'
+import SchedulePage from './pages/schedule/schedule.page';
 
 import Header from './components/header/header.component'
 
-class App extends React.Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired()
-  }
+export const UserContext = createContext(null)
 
-  constructor(){
-    super();
-    
-    this.state = {
-      _id: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      imgUrl: "",
-      schedule: []
-    }
-  }
+function App(){
+    const [user, setUser] = useState(null)
 
-  async componentDidMount(){
-    /*
-    let queryString = window.location.search
-    let urlParams = new URLSearchParams(queryString)
-    const googleId = urlParams.get('id')
-
-    if(googleId){
-      await axios({
-        method: "GET",
-        url: `http://localhost:8080/api/users/${googleId}`
-      })
-        .then(res => {
-            this.setState({
-                _id: res.data._id,
-                firstName: res.data.firstName,
-                lastName: res.data.lastName,
-                email: res.data.email,
-                imgUrl: res.data.imgUrl,
-                schedule: res.data.schedule
+    useEffect(() => {
+        async function auth() {
+            await axios({
+                method: "GET",
+                url: "/authByToken"
             })
-        })
-        .then(() => console.log("state: ", this.state))
-    }
-    */
-   console.log(Cookies.get('token'))
-  }
-
-  render(){
+            .then(async res => {
+                await axios({
+                    method: "GET",
+                    url: `/api/users/${res.data.user._id}`
+                })
+                .then(resUser => {
+                    setUser(resUser.data)
+                })
+            })
+            .catch(err => console.log(err))
+        }
+        auth();
+    }, [])
+    
     return (
-      <div className="app">
-        <Header user={this.state._id} image={this.state.imgUrl}/>
-        <div className="pages">
-          <Switch>
-            <Route exact path="/" component={()=>(<h1>HOME</h1>)}></Route>
-            <Route path="/enroll" component={EnrollPage}></Route>
-            <Route path="/course" component={CoursePage}></Route>
-            <Route path="/schedule" render={() => <SchedulePage schedule={this.state.schedule}/>}></Route>
-            <Route exact path='/signin' render={() => this.state.currentUser ? (<Redirect to='/' />) : (<SignInPage/>)}/>
-          </Switch>
+        <div className="app">
+            <Header user={user} />
+            <div className="pages">
+                <Switch>
+                    <UserContext.Provider value={{user, setUser}}>
+                        <Route exact path="/" component={HomePage}></Route>
+                        <Route path="/enroll" component={EnrollPage}></Route>
+                        <Route path="/course" component={CoursePage}></Route>
+                        <Route path="/schedule" component={SchedulePage}></Route>
+                    </UserContext.Provider>
+                </Switch>
+            </div>
         </div>
-      </div>
     );
-  }
 }
 
-export default withCookies(App);
+export default App;

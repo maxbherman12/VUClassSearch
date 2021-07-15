@@ -1,0 +1,60 @@
+.alert{
+    --info: rgb(74, 74, 219);
+    --error: rgb(233, 64, 64);
+    --success: rgb(11, 224, 11);
+    position: absolute;
+    left: 50vw;
+    margin-left: -200px;
+    bottom: 5vh;
+    width: 400px;
+    height: 50px;
+    border: 2px rgba(0, 0, 0, 0.8) solid;
+    border-radius: 5px;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    opacity: .9;
+}
+
+.alert.top{
+    top: 15vh;
+}
+
+.alert.info{
+    background-color: var(--info);
+}
+
+.alert.error{
+    background-color: var(--error);
+}
+
+.alert.success{
+    background-color: var(--success);
+}
+
+.alert-icon{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alert-message{
+    width: 75%;
+}
+
+.close-alert{
+    width: 10%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-alert:hover{
+    opacity: .9;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
+}

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const Course = require('../models/course.model');
+const User = require('../models/user.model')
 
-const depts = ["CS", "CSET"]
+const depts = ["CS", "CSET", "MATH"]
 
 const validateCourse = async json => {
     let exists;
@@ -34,6 +35,15 @@ const validateCourse = async json => {
     }
 }
 
+const getUserById = async id => {
+    let findUser = new User();
+    await User.findById(id)
+        .then(user => {
+            findUser = user;
+        })
+    return findUser;
+}
+
 router.get('/', (req, res) => {
     Course.find({})
         .then(courses => res.send(courses))
@@ -53,14 +63,13 @@ router.get('/:id/students', (req, res) => {
 })
 
 router.post('/:studentId', async (req, res) => {
-    console.log(req)
     const validStr = await validateCourse(req.body);
     if(validStr === "valid"){
         Course.create(req.body)
             .then(course => res.send(course))
             .catch(err => console.log(err))
     }
-    else if(validStr === "exists"){
+    if(validStr === "exists" || validStr === "valid"){
         let updatedStudents = []
         let courseId;
 
@@ -71,8 +80,12 @@ router.post('/:studentId', async (req, res) => {
             })
             .catch(err => {console.log(err)})
 
-        updatedStudents.push(req.params.studentId)
-
+        let user;
+        await getUserById(req.params.studentId)
+            .then(findUser => {
+                user = findUser
+            })
+        updatedStudents.push(user)
         Course.findByIdAndUpdate(courseId, {students: updatedStudents})
             .then(updatedCourse => res.send(updatedCourse))
             .catch(err => res.send(err))

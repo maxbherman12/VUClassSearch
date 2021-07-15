@@ -17,7 +17,7 @@ const CourseSchema = new Schema({
         required: true
     },
     students : {
-        type: [String],
+        type: [UserSchema],
         required: true
     },
     startTime: {

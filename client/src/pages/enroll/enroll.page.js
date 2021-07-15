@@ -3,9 +3,9 @@ import './enroll.styles.css'
 
 import EnrollForm from '../../components/enroll-form/enroll-form.component';
 
-const EnrollPage = () => (
+const EnrollPage = ({userId}) => (
     <div className="enroll-page">
-        <EnrollForm/>
+        <EnrollForm />
     </div>
 )
 
