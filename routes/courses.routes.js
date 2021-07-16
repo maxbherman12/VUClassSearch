@@ -1,5 +1,9 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const router = express.Router();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const Course = require('../models/course.model');
 const User = require('../models/user.model')
@@ -64,8 +68,9 @@ router.get('/:id/students', (req, res) => {
 
 router.post('/:studentId', async (req, res) => {
     const validStr = await validateCourse(req.body);
+
     if(validStr === "valid"){
-        Course.create(req.body)
+        await Course.create(req.body)
             .then(course => res.send(course))
             .catch(err => console.log(err))
     }
@@ -85,14 +90,23 @@ router.post('/:studentId', async (req, res) => {
             .then(findUser => {
                 user = findUser
             })
+            .catch(err => console.log(err))
+
         updatedStudents.push(user)
+
         Course.findByIdAndUpdate(courseId, {students: updatedStudents})
-            .then(updatedCourse => res.send(updatedCourse))
             .catch(err => res.send(err))
+            .then(updatedCourse => res.send(updatedCourse))
     }
     else{
         res.status(400).send(validStr)
     }
+})
+
+router.put('/:id', (req, res) => {
+    Course.findByIdAndUpdate(req.params.id, req.body)
+        .then(updatedCourse => res.send(updatedCourse))
+        .catch(err => res.send(err))
 })
 
 //ONLY USE TO RESET DATABASE DURING TESTING

@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
+const axios = require('axios')
 
 const app = express();
 
@@ -54,7 +55,68 @@ app.get("/auth/google/callback",
     }, 'secret')
     res.cookie("token", token, {httpOnly:false})
     res.redirect('http://localhost:3000')
-  });
+});
+
+let course;
+app.post('/groupme/auth', (req, res) => {
+    course = req.body
+    res.send(process.env.GROUP_ME_CLIENT_ID)
+})
+
+app.get('/groupme/callback', async (req, res) => {
+    let groupmeId;
+    let groupmeLink;
+    let access_token = req.query.access_token;
+
+    await axios({
+        method: "POST",
+        url: `https://api.groupme.com/v3/groups?token=${access_token}`,
+        data: {
+            name: `${course.department} ${course.number} - ${course.professor}`,
+            description: `This is the course group me for ${course.department} ${course.number}`,
+            share: true
+        }
+    })
+        .then(res => {
+            groupmeId = res.data.response.id
+            groupmeLink = res.data.response.share_url
+        })
+        .catch(err => console.log(err))
+
+    await axios({
+        method: "PUT",
+        url: `http://localhost:8080/api/courses/${course._id}`,
+        data: {
+            groupme: {
+                id: groupmeId,
+                share_url: groupmeLink
+            }
+        }
+    })
+        .catch(err => console.log(err))
+
+    const token = req.cookies.token;
+
+    if(!token){
+        res.status(401).send("Access denied. No token provided")
+    }
+
+    let decodedUser;
+    try{
+        decodedUser = await jwt.verify(token, "secret");
+    }catch(err){
+        res.redirect("http://localhost:3000")
+        res.clearCookie("token")
+        res.status(401).send(err.message)
+    }
+
+    await axios({
+        method: "PUT",
+        url: `http://localhost:8080/api/users/${decodedUser.user._id}/addgroupme/${groupmeId}`
+    })
+
+    res.redirect(`http://localhost:3000/course?id=${course._id}`)
+})
 
 app.get('/authByToken', (req, res) => {
     const token = req.cookies.token;

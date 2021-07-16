@@ -4,6 +4,7 @@
     min-width: 165px;
     width: auto;
     height: 50px;
+    padding: 0 10px;
     letter-spacing: 0.5px;
     line-height: 50px;
     font-size: 15px;
@@ -19,12 +20,12 @@
     outline: none;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);
     text-decoration: none;
+    border: 2px black solid;
 }
 
 .custom-button:hover {
       background-color: var(--focus-color);
       color: var(--main-color);
-      border: 2px black solid;
 }
 
 .google{

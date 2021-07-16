@@ -2,7 +2,7 @@ import React from 'react'
 import './custom-button.styles.css'
 
 const CustomButton = ({children, google, ...otherProps}) => (
-    <button className={`${google ? "google" : ""} custom-button`}>
+    <button className={`${google ? "google" : ""} custom-button`} {...otherProps}>
         {children}
     </button>
 )

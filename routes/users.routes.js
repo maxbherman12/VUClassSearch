@@ -99,6 +99,7 @@ router.put('/:userId/:courseId', async (req, res) => {
             .then(updatedUser => {
                 res.send(updatedUser)
             })
+            .catch(err => console.log(err))
     }
     else{
         res.status(400).send("This course already exists in your schedule")
@@ -123,6 +124,30 @@ router.put('/clear-schedule/:userId', async (req, res) => {
             .then(updatedUser => {
                 res.send(updatedUser)
             })
+            .catch(err => console.log(err))
+})
+
+router.put('/:userId/addgroupme/:groupmeId', async (req, res) => {
+    let updatedGroupmes = []
+
+    await User.findById(req.params.userId)
+        .then(user => {
+            updatedGroupmes = user.groupmes
+        })
+        .catch(err => console.log(err))
+
+    if(!updatedGroupmes.find(groupme => groupme === req.params.groupmeId)){
+        updatedGroupmes.push(req.params.groupmeId)
+
+        User.findByIdAndUpdate(req.params.userId, {groupmes: updatedGroupmes})
+            .then(updatedUser => {
+                res.send(updatedUser)
+            })
+            .catch(err => console.log(err))
+    }
+    else{
+        res.status(400).send("You are already in this groupme")
+    }
 })
 
 //DELETE Routes

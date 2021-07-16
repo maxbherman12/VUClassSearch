@@ -1,0 +1,6 @@
+.student-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 0;
+}

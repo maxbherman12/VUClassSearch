@@ -1,27 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './alert.styles.css'
 
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
-
-// export const createAlert = (message, severity, top=false) => {
-//     let open = true;
-
-//     setTimeout(() => open = false, 3000)
-
-//     return(
-//         <Alert
-//             isOpen={open}
-//             top={top}
-//             severity={severity}
-//             handleClose={() => open = false}
-//         >
-//             {message}
-//         </Alert>
-//     )
-// }
 
 //bottom alert by default
 const Alert = ({isOpen, children, top, severity, handleClose}) => {

@@ -30,6 +30,7 @@ const UserSchema = new Schema({
         saturday: Boolean,
         sunday: Boolean
     }],
+    groupmes: [String],
     dateReg: {
         type: Date,
         default: Date.now

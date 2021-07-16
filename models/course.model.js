@@ -55,6 +55,10 @@ const CourseSchema = new Schema({
     sunday: {
         type: Boolean,
         required: true
+    },
+    groupme: {
+        id: String,
+        share_url: String
     }
 });
 

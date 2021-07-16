@@ -1,0 +1,30 @@
+.course-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.course-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 2vh 0;
+    border-bottom: 3px black solid;
+}
+
+.course-header .course-prof{
+    width: 40%;
+}
+
+.course-header .groupme-btn{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.course-header .date-time{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}

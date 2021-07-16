@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, {useContext, useState} from 'react'
 import {UserContext} from '../../App'
 import './enroll-form.styles.css'
 
@@ -8,7 +8,7 @@ import {formatCourseStr, formatProfessor} from '../../utils/course.utils'
 import FormInput from '../form-input/form-input.component';
 import Checkbox from '../checkbox/checkbox.component';
 import CustomButton from '../custom-button/custom-buttom.component'
-import Alert, {createAlert} from '../alert/alert.component'
+import Alert from '../alert/alert.component'
 
 const courseNullState = {
     department: "",
@@ -83,7 +83,11 @@ const EnrollForm = () => {
                 thursday: thursday,
                 friday: friday,
                 saturday: saturday,
-                sunday: sunday
+                sunday: sunday,
+                groupme: {
+                    id: "",
+                    share_url: ""
+                }
             }
         }).then(res =>  {
                 axios({

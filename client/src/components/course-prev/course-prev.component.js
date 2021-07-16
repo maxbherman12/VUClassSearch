@@ -21,23 +21,14 @@ const CoursePrev = ({course}) => {
     }
 
     const handleDelete = async () => {
-        // let newSchedule = user.schedule
-        // let index = newSchedule.findIndex(el => el._id === course._id)
-        // if(index > -1){
-        //     newSchedule.splice(index, 1)
-        // }
-        // setUser({...user, schedule: newSchedule})
         axios({
             method: "PUT",
             url: `/api/users/unenroll/${user._id}/${course._id}`
         })
             .then(resp => {
-                console.log(resp.data)
                 setUser(resp.data)
             })
             .catch(err => console.log(err))
-
-        //MAKE API CALL TO REMOVE THAT ELEMENT FROM SCHEDULE
     }
 
     return(
