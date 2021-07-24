@@ -1,0 +1,18 @@
+.profile-form{
+    margin: 3vh 0;
+    width: 100%;
+}
+
+.input-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.half-input{
+    width: 45%;
+}
+
+.half-input.right{
+    justify-content: flex-end;
+}
+

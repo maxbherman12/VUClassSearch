@@ -1,12 +1,15 @@
 .course-prev{
     display: flex;
+    height: 90px;
 }
 
-.course-info{
-    width: 90%;
+.course-prev .course-info{
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    background-color: grey;
+    align-items: center;
+    background-color: var(--yellow);
     padding: 1vw;
     margin: 1vh 0;
     border-radius: 10px;
@@ -14,19 +17,24 @@
     color: black;
 }
 
-.course-info:hover{
+.course-prev .course-info:hover{
     opacity: .9;
     transform: scale(1.005);
     transition: 0.1s ease-in-out;
 }
 
-.course-info .date-time{
+.course-prev .course-info .date-time{
     text-align: right;
 }
 
-.remove-btn{
+.course-prev .remove-btn{
+    margin-right: -10%;
     width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.course-prev .remove-btn.disable{
+    display: none;
 }

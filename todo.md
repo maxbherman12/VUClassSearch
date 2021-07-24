@@ -1,5 +1,7 @@
-### TODO: Max
+### TODO
 
+- [X] Fix redirect when not logged in
+- [ ] Fix redirect on refresh because takes time to get state
 - [X] Make it so that when class is duplicate it doesnt get added to schedule
 
 - [X] Create add a course form
@@ -7,7 +9,7 @@
     - [X] Connect to API
     - [X] Write a good middleware function for courses
     - [X] Style form
-    - [ ] Style page
+    - [X] Style page
 
 - [X] Create course page
     - [X] Pull course data from API
@@ -19,17 +21,17 @@
     - [ ] Each user can only edit their own profile
     - [ ] Each user can only add courses for themselves
 
--[ ] Additional Functionality
-    - [ ] Course group me
+-[ ] Additional Functionality?
+    - [X] Course group me
     - [ ] Add schedule to google calendar
     - [ ] GPA Calculator
     - [ ] Course reviews
     - [ ] In app chat
 
-- [ ] Set up routes (react-router-dom)
+- [X] Set up routes (react-router-dom)
     - [X] Set up in App.js and index.js
     - [X] Create starter pages for each route
-    - [ ] Figure out how to have different pages for each course
+    - [X] Figure out how to have different pages for each course
  
  - [X] Home page
     - [X] Set up header

@@ -12,6 +12,8 @@
     display: flex;
     align-items: center;
     color: var(--white);
+    font-family: Righteous;
+    letter-spacing: 0.15em;
 }
 
 .logo-container .link{
@@ -37,10 +39,12 @@
 
 .link:hover{
     opacity: .9;
+    color: var(--yellow);
+    transition: 0.1s ease-in-out;
 }
 
 .profile-pic{
-    height: 70%;
+    height: 80%;
     width: auto;
     border-radius: 50%;
     cursor: pointer;

@@ -6,8 +6,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-const {CourseSchema} = require('./course.model');
-
 const UserSchema = new Schema({
     firstName: String,
     lastName: String,
@@ -15,22 +13,36 @@ const UserSchema = new Schema({
     googleId: String,
     secret: String,
     imgUrl: String,
-    schedule: [{
-        _id: String,
-        department: String,
-        number: Number,
-        professor: String,
-        startTime: String,
-        endTime: String,
-        monday: Boolean,
-        tuesday: Boolean,
-        wednesday: Boolean,
-        thursday: Boolean,
-        friday: Boolean,
-        saturday: Boolean,
-        sunday: Boolean
-    }],
-    groupmes: [String],
+    bio: {
+        type: String,
+        default: ""
+    },
+    major: {
+        type: String,
+        default: "N/A"
+    },
+    schedule: {
+        type: [{
+            _id: String,
+            department: String,
+            number: Number,
+            professor: String,
+            startTime: String,
+            endTime: String,
+            monday: Boolean,
+            tuesday: Boolean,
+            wednesday: Boolean,
+            thursday: Boolean,
+            friday: Boolean,
+            saturday: Boolean,
+            sunday: Boolean
+        }],
+        default: []
+    },
+    hideSchedule: {
+        type: Boolean,
+        default: false
+    },
     dateReg: {
         type: Date,
         default: Date.now

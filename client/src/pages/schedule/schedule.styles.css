@@ -1,4 +1,4 @@
-.content{
+.schedule-page{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,4 +8,23 @@
 
 .schedule-page a{
     text-decoration: none;
+}
+
+.schedule-container{
+    width: 50vw;
+}
+
+.schedule-container h2{
+    text-decoration: underline;
+}
+
+#empty-msg{
+    margin: 3vh 0;
+}
+
+.button-grp{
+    display: flex;
+    gap: 20px;
+    margin-top: 1vh;
+    margin-bottom: 5vh;
 }

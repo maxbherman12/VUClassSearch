@@ -22,22 +22,16 @@ const Alert = ({isOpen, children, top, severity, handleClose}) => {
     }
 
     return(
-        <div>
-            {
-                isOpen ?
-                <div className={`alert ${top ? "top" : ""} ${severity ? severity : ""}`}>
-                    <div className="alert-icon">
-                        {getIcon()}
-                    </div>
-                    <div className="alert-message">
-                        {children}
-                    </div>
-                    <div className="close-alert">
-                        <CloseIcon onClick={() => handleClose()}/>
-                    </div>
-                </div>
-                : null
-            }
+        <div className={`alert ${top ? "top" : ""} ${severity ? severity : ""} ${isOpen ? "" : "closed"}`}>
+            <div className="alert-icon">
+                {getIcon()}
+            </div>
+            <div className="alert-message">
+                {children}
+            </div>
+            <div className="close-alert">
+                <CloseIcon onClick={() => handleClose()}/>
+            </div>
         </div>
     )
 }

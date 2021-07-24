@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import './course-prev.styles.css'
 
 import {api as axios} from '../../utils/axios.utils'
+import {Link} from 'react-router-dom'
 
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -12,9 +13,9 @@ import {formatCourseStr, formatDayStr, formatTimeStr} from '../../utils/course.u
 import YesNoDialog from '../yes-no-dialog/yes-no-dialog.component';
 import { UserContext } from '../../App';
 
-const CoursePrev = ({course}) => {
+const CoursePrev = ({course, allowDelete}) => {
     const [openDialog, setOpenDialog] = useState(false)
-    const {user, setUser} = useContext(UserContext)
+    const {setUser} = useContext(UserContext)
 
     const handleClose = () => {
         setOpenDialog(false);
@@ -23,7 +24,7 @@ const CoursePrev = ({course}) => {
     const handleDelete = async () => {
         axios({
             method: "PUT",
-            url: `/api/users/unenroll/${user._id}/${course._id}`
+            url: `/api/users/unenroll/${course._id}`
         })
             .then(resp => {
                 setUser(resp.data)
@@ -33,7 +34,7 @@ const CoursePrev = ({course}) => {
 
     return(
         <div className="course-prev">
-            <a className="course-info" href={`http://localhost:3000/course?id=${course._id}`}>
+            <Link className="course-info" to={`/course?id=${course._id}`}>
                 <div className="course-prof">
                     <h3>{formatCourseStr(course)}</h3>
                     <p>{course.professor}</p>
@@ -42,8 +43,8 @@ const CoursePrev = ({course}) => {
                     <p>{`${formatTimeStr(course.startTime)} - ${formatTimeStr(course.endTime)}`}</p>
                     <p>{formatDayStr(course)}</p>
                 </div>
-            </a>
-            <div className="remove-btn">
+            </Link>
+            <div className={`remove-btn ${allowDelete ? "" : "disable"}`}>
                 <Tooltip title="Remove course" placement="right">
                     <IconButton onClick={() => setOpenDialog(true)}>
                         <DeleteIcon color="action" fontSize="large"/>

@@ -44,12 +44,13 @@ const EnrollForm = () => {
     const [formData, setFormData] = useState(courseNullState)
     const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = formData
 
-    const {user, setUser} = useContext(UserContext);
-    const [openError, setOpenError] = useState(false)
-    const [openSuccess, setOpenSuccess] = useState(false)
-    const [alertMessage, setAlertMessage] = useState("Alert")
-    
+    const {setUser} = useContext(UserContext);
+    const [openError, setOpenError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("Alert");
+
     const openAlert = (message, alertDuration, func) => {
+        console.log(message)
         setAlertMessage(message)
         func(true)
         setTimeout(() => {func(false)}, alertDuration)
@@ -70,7 +71,7 @@ const EnrollForm = () => {
 
         await axios({
             method: "POST",
-            url: `/api/courses/${user._id}`,
+            url: `/api/courses/`,
             data: {
                 department: department.trim().toUpperCase(),
                 number: number,
@@ -92,12 +93,13 @@ const EnrollForm = () => {
         }).then(res =>  {
                 axios({
                     method: "PUT",
-                    url: `/api/users/${user._id}/${res.data._id}`
+                    url: `/api/users/push2schedule/${res.data._id}`
                 })
-                    .then(resp => {
+                    .then(async resp => {
+                        // await openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenError)
+                        alert(`Successfully addded ${formatCourseStr(res.data)} to schedule`)
                         setFormData(courseNullState)
                         setUser(resp.data)
-                        openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenSuccess)
                     })
                     .catch(err => openAlert(err.response.data, 4000, setOpenError))
             })
@@ -205,17 +207,18 @@ const EnrollForm = () => {
             </form>
             <br/>
             <button onClick={() => setFormData(fakeState)}>Fill form</button>
+
             <Alert 
-                isOpen={openError}
-                severity="error"
-                handleClose={() => setOpenError()}
+                isOpen={success}
+                severity="success"
+                handleClose={() => setSuccess()}
             >
                 {alertMessage}
             </Alert>
             <Alert 
-                isOpen={openSuccess}
-                severity="success"
-                handleClose={() => setOpenSuccess()}
+                isOpen={openError}
+                severity="error"
+                handleClose={() => setOpenError()}
             >
                 {alertMessage}
             </Alert>

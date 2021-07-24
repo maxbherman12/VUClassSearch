@@ -1,0 +1,28 @@
+#nash-video{
+    position: fixed;
+    top: 10vh;
+    left: -2.5vw;
+    min-width: 100%;
+    min-height: 90vh;
+    opacity: .8;
+    z-index: 0;
+}
+
+.info-box{
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50% - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 100000;
+    background-color: var(--yellow);
+    border-radius: 5px;
+    width: 300px;
+    height: 100px;
+}
+
+.info-box h1{
+    position: relative;
+}

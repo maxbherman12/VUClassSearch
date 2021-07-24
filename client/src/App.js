@@ -1,11 +1,13 @@
 import React, {createContext, useEffect, useState} from 'react'
 import './App.css';
 
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import {api as axios} from './utils/axios.utils'
 
 import CoursePage from './pages/course/course.page';
 import EnrollPage from './pages/enroll/enroll.page';
+import MyProfilePage from './pages/myprofile/myprofile.page';
+import ProfilePage from './pages/profile/profile.page';
 import HomePage from './pages/home/home.page'
 import SchedulePage from './pages/schedule/schedule.page';
 
@@ -20,18 +22,10 @@ function App(){
         async function auth() {
             await axios({
                 method: "GET",
-                url: "/authByToken"
+                url: "/auth/user"
             })
-            .then(async res => {
-                await axios({
-                    method: "GET",
-                    url: `/api/users/${res.data.user._id}`
-                })
-                .then(resUser => {
-                    setUser(resUser.data)
-                })
-            })
-            .catch(err => console.log(err))
+            .then(resUser => setUser(resUser.data))
+            .catch(err => console.log("ERROR: ", err.json))
         }
         auth();
     }, [])
@@ -43,9 +37,11 @@ function App(){
                 <Switch>
                     <UserContext.Provider value={{user, setUser}}>
                         <Route exact path="/" component={HomePage}></Route>
-                        <Route path="/enroll" component={EnrollPage}></Route>
-                        <Route path="/course" component={CoursePage}></Route>
-                        <Route path="/schedule" component={SchedulePage}></Route>
+                        <Route path="/course" component={() => user ? <CoursePage/> : <Redirect to="/"/>}></Route>
+                        <Route path="/enroll" component={() => user ? <EnrollPage/> : <Redirect to="/"/>}></Route>
+                        <Route path="/myprofile" component={MyProfilePage}></Route>
+                        <Route path="/profile" component={ProfilePage}></Route>
+                        <Route path="/schedule" component={() => user ? <SchedulePage/> : <Redirect to="/"/>}></Route>
                     </UserContext.Provider>
                 </Switch>
             </div>

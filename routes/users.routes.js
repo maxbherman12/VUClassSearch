@@ -1,73 +1,87 @@
-const express = require('express');
-const router = express.Router();
-const jwt = require('jsonwebtoken')
+const express       = require('express');
+const router        = express.Router();
+const auth          = require('../middleware/auth')
+const User          = require('../models/user.model')
+const Course        = require('../models/course.model')
 
-const User = require('../models/user.model')
-const Course = require('../models/course.model')
-
-/**
- * removePersonalData()
- * takes an individual user and cleans the data so that the data flowing to the client does not contain 
- * the usernames and passwords of the users
- * @param data - data for an individual user
- * @returns - cleaned data for user without personal information
- */
-const removePersonalData = user => {
-    const cleanUser = {
-        _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        imgUrl: user.imgUrl,
-        schedule: user.schedule
-    }
-    return cleanUser;
-}
-
-//GET Routes
+// @route       GET api/users
+// @desc        Get all users
+// @access      Public
 router.get('/', (req, res) => {
     User.find({})
-        .then(users => users.map(user => {
-            return removePersonalData(user)
-        }))
-        .then(cleanUsers => res.send(cleanUsers))
+        .then(users => res.send(users))
         .catch(err => res.status(400).send(err))
 });
 
-//get by id
+// @route       GET api/users/:id
+// @desc        Get user by id
+// @access      Public
 router.get('/:id', (req, res) => {
     User.findOne({_id: req.params.id})
         .then(user => {res.send(user)})
         .catch(err => res.status(401).send(err))
 })
 
-//POST Routes
+// @route       POST api/users
+// @desc        Create a new user
+// @access      Public
 router.post('/', (req, res) => {
     User.create(req.body)
-        .then(newUser => { res.send(removePersonalData(newUser)) })
-        .catch(err => res.status(402).send(err))
+        .then(newUser => { res.send(newUser) })
+        .catch(err => res.status(401).send(err))
 })
 
-//PUT Routes
-router.put('/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body)
-        .then(updatedUser => res.send(removePersonalData(updatedUser)))
-        .catch(err => res.status(403).send(err))
+// @route       PUT api/users/:id
+// @desc        Update a user by id
+// @access      Public
+router.put('/', auth, (req, res) => {
+    User.findByIdAndUpdate(req.user._id, req.body)
+        .then(updatedUser => res.send(updatedUser))
+        .catch(err => res.status(401).send(err))
 })
 
-router.put('/unenroll/:userId/:courseId', async (req, res) => {
-    let updatedSchedule = []
+// @route       PUT api/users/push2schedule/:courseId
+// @desc        Push course with given id to user's schedule
+// @access      Private
+router.put('/push2schedule/:courseId', auth, async (req, res) => {
+    let courseToAdd
+    let updatedSchedule
 
-    await User.findById(req.params.userId)
-        .then(user => {
-            updatedSchedule = user.schedule
+    await User.findById(req.user._id)
+        .then(user => updatedSchedule = user.schedule)
+    
+    if(!updatedSchedule.find(course => course._id === req.params.courseId)){
+        await Course.findById(req.params.courseId)
+        .then(course => {
+            courseToAdd = course
         })
+        .catch(err => res.send(err))
+        
+        User.findByIdAndUpdate(req.user._id, {$push: {"schedule": courseToAdd}})
+        .then(updatedUser => {
+            res.send(updatedUser)
+        })
+        .catch(err => res.send(err))
+    }
+    else{
+        res.status(400).send("This course already exists in your schedule")
+    }
+})
+
+// @route       PUT api/users/unenroll/:courseId
+// @desc        Remove course from user's schedule
+// @access      Private
+router.put('/unenroll/:courseId', auth, async (req, res) => {
+    let updatedSchedule
+
+    await User.findById(req.user._id)
+        .then(user => updatedSchedule = user.schedule)
 
     let index = updatedSchedule.findIndex(el => el._id === req.params.courseId)
     if(index > -1){
         updatedSchedule.splice(index, 1)
 
-        User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
+        User.findByIdAndUpdate(req.user._id, {schedule: updatedSchedule})
             .then(updatedUser => {
                 res.send(updatedUser)
             })
@@ -77,88 +91,40 @@ router.put('/unenroll/:userId/:courseId', async (req, res) => {
     }
 })
 
-router.put('/:userId/:courseId', async (req, res) => {
-    let updatedSchedule = []
+// @route       PUT api/users/schedule/clear
+// @desc        Clear a user's schedule
+// @access      Private
+router.put('/schedule/clear', auth, async (req, res) => {
+    let updatedSchedule
 
-    await User.findById(req.params.userId)
-        .then(user => {
-            updatedSchedule = user.schedule
-        })
+    await User.findById(req.user._id)
+        .then(user => updatedSchedule = user.schedule)
 
-    if(!updatedSchedule.find(course => course._id === req.params.courseId)){
-        let addedCourse = new Course();
-        await Course.findById(req.params.courseId)
-            .then(course => {
-                addedCourse = course;
-            })
-            .catch(err => console.log(err))
-        
-        updatedSchedule.push(addedCourse)
-
-        User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
-            .then(updatedUser => {
-                res.send(updatedUser)
-            })
-            .catch(err => console.log(err))
-    }
-    else{
-        res.status(400).send("This course already exists in your schedule")
-    }
-})
-
-//clear user schedule
-//TODO: FIX
-router.put('/clear-schedule/:userId', async (req, res) => {
-    let updatedSchedule = []
-    await User.findById(req.params.userId)
-        .then(user => {
-            updatedSchedule = user.schedule
-        })
-
-    let count = 1
-    while(updatedSchedule.pop()){
-        console.log(count++)
+    let scheduleLength = updatedSchedule.length
+    for(let i = 0; i < scheduleLength; ++i){
+        updatedSchedule.pop()
     }
 
-    User.findByIdAndUpdate(req.params.userId, {schedule: updatedSchedule})
+    User.findByIdAndUpdate(req.user._id, {schedule: updatedSchedule})
             .then(updatedUser => {
                 res.send(updatedUser)
             })
             .catch(err => console.log(err))
 })
 
-router.put('/:userId/addgroupme/:groupmeId', async (req, res) => {
-    let updatedGroupmes = []
-
-    await User.findById(req.params.userId)
-        .then(user => {
-            updatedGroupmes = user.groupmes
-        })
-        .catch(err => console.log(err))
-
-    if(!updatedGroupmes.find(groupme => groupme === req.params.groupmeId)){
-        updatedGroupmes.push(req.params.groupmeId)
-
-        User.findByIdAndUpdate(req.params.userId, {groupmes: updatedGroupmes})
-            .then(updatedUser => {
-                res.send(updatedUser)
-            })
-            .catch(err => console.log(err))
-    }
-    else{
-        res.status(400).send("You are already in this groupme")
-    }
-})
-
-//DELETE Routes
-router.delete('/:id', (req,res) => {
-    User.findByIdAndDelete(req.params.id)
+// @route       DELETE api/users
+// @desc        Delete a user
+// @access      Private
+router.delete('/', auth, (req,res) => {
+    User.findByIdAndDelete(req.user._id)
         .catch(err => res.status(404).send(err))
         .then(res.send(`Successfully deleted user ${req.params.id}`))
 })
 
-//ONLY USE TO RESET DATABASE DURING TESTING
-router.delete('/', (req, res) => {
+// @route       DELETE api/users/reset
+// @desc        Clear all users from DB
+// @access      Public
+router.delete('/reset', (req, res) => {
     User.deleteMany({})
         .then(resp => res.send({
             message: `Successfully deleted ${resp.deletedCount} record${resp.deletedCount != 1 ? "s" : ""}`

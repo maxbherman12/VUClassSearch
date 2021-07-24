@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './course.styles.css'
 
 import StudentList from '../../components/student-list/student-list.component'
@@ -6,11 +6,9 @@ import CustomButton from '../../components/custom-button/custom-buttom.component
 
 import {formatCourseStr, formatDayStr, formatTimeStr} from '../../utils/course.utils'
 import {api as axios} from '../../utils/axios.utils'
-import { UserContext } from '../../App'
 
 const CoursePage = () => {
     const [course, setCourse] = useState(null)
-    const {user} = useContext(UserContext)
 
     useEffect(() => {
         let queryString = window.location.search
@@ -30,7 +28,7 @@ const CoursePage = () => {
             let clientId;
             await axios({
                 method: "POST",
-                url: '/groupme/auth',
+                url: '/auth/groupme',
                 data: course
             })
             .then(res => clientId = res.data)
@@ -54,11 +52,7 @@ const CoursePage = () => {
                                 <p>{course.professor}</p>
                             </div>
                             <div className="groupme-btn">
-                                {
-                                    user && user.groupmes.includes(course.groupme.id) ? 
-                                    null
-                                    : <CustomButton onClick={handleClick}>{`${course.groupme.share_url ? "Join" : "Create"} Course GroupMe`}</CustomButton>
-                                }
+                                <CustomButton onClick={handleClick}>{`${course.groupme.share_url ? "Join" : "Create"} Course GroupMe`}</CustomButton>
                             </div>
                             <div className="date-time">
                                 <p>{`${formatTimeStr(course.startTime)} - ${formatTimeStr(course.endTime)}`}</p>

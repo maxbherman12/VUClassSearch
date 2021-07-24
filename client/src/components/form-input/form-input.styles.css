@@ -1,14 +1,15 @@
 .group {
     position: relative;
     padding-top: 30px;
-    overflow: hidden;
 }
 .group .form-input {
+    box-sizing: border-box;
     background: none;
     background-color: var(--white);
-    color: grey;
+    color: black;
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    font-family: 'Montserrat';
+    padding: 10px 10px 10px 0px;
     display: block;
     width: 100%;
     border: none;
@@ -19,6 +20,7 @@
     outline: none;
 }
 .group .form-input:focus ~ .form-input-label {
+    left: 0;
     bottom: 40px;
     font-size: 12px;
     color: black;
@@ -37,7 +39,16 @@
     transition: 300ms ease all;
 }
 .group .form-input-label.shrink {
+    left: 0;
     bottom: 40px;
     font-size: 12px;
     color: black;
+}
+
+.form-input.disabled{
+    color: gray;
+}
+
+.form-input-label.disabled{
+    color: gray;
 }

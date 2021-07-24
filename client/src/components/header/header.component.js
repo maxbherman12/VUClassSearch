@@ -11,6 +11,7 @@ const Header = ({user}) => {
     <div className="header">
         <div className="logo-container">
             <Link className="link" to="/">
+                {/* <h1>VUClassSearch</h1> */}
                 <h1>VUClassSearch</h1>
             </Link>
         </div>
