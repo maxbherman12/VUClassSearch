@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: dodgerblue;
+    background-color: var(--yellow);
     color: black;
     border-radius: 10px;
     height: 40px;

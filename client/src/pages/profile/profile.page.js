@@ -34,10 +34,9 @@ const ProfilePage = () => {
                                 :
                                 <i>{user.major}</i>
                             }
-                            
                             {
                                 user.bio ?
-                                <p><strong>Bio: </strong>{user.bio}</p>
+                                <p id="bio"><strong>Bio: </strong>{user.bio}</p>
                                 : null
                             }
                         </div>

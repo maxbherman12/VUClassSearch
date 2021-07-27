@@ -35,7 +35,8 @@ const UserSchema = new Schema({
             thursday: Boolean,
             friday: Boolean,
             saturday: Boolean,
-            sunday: Boolean
+            sunday: Boolean,
+            lab: Boolean
         }],
         default: []
     },

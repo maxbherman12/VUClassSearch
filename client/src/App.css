@@ -1,11 +1,13 @@
 .app{
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .pages{
     background-color: var(--white);
     min-height: 90vh;
     padding: 0 2.5vw;
+    margin-top: 10vh;
 }
 

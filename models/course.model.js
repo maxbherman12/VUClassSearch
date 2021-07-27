@@ -56,6 +56,10 @@ const CourseSchema = new Schema({
         type: Boolean,
         required: true
     },
+    lab : {
+        type: Boolean,
+        default: false
+    },
     groupme: {
         id: String,
         share_url: String

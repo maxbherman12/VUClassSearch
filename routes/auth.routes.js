@@ -21,7 +21,7 @@ router.get("/google",
 // @access      Public
 router.get("/google/callback",
     passport.authenticate("google", { failureRedirect: "http://localhost:3000" }), (req, res) => {
-        let minsToExp = 45;
+        let minsToExp = 90;
       
         let token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (minsToExp * 60),

@@ -16,8 +16,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     /* Variables */
-    --white: #f8f8ff;
-    --dark-gray: #313131;
+    --white: #f0f0f0;
+    --dark-gray: #222222;
     --yellow: rgb(243, 231, 65);
 }
 

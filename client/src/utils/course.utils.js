@@ -1,5 +1,5 @@
 export function formatCourseStr(course){
-    return `${course.department} ${course.number}`
+    return `${course.department} ${course.number}${course.lab ? "L" : ""}`
 }
 
 export function formatProfessor(professorStr){

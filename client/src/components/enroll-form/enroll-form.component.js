@@ -22,27 +22,13 @@ const courseNullState = {
     thursday: false,
     friday: false,
     saturday: false,
-    sunday: false
-}
-
-const fakeState = {
-    department: "CS",
-    number: "2201",
-    professor: "Roth",
-    startTime: "11:30",
-    endTime: "12:20",
-    monday: true,
-    tuesday: false,
-    wednesday: true,
-    thursday: false,
-    friday: true,
-    saturday: false,
-    sunday: false
+    sunday: false,
+    lab: false
 }
 
 const EnrollForm = () => {
     const [formData, setFormData] = useState(courseNullState)
-    const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = formData
+    const {department, number, professor, lab, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = formData
 
     const {setUser} = useContext(UserContext);
     const [openError, setOpenError] = useState(false);
@@ -88,7 +74,8 @@ const EnrollForm = () => {
                 groupme: {
                     id: "",
                     share_url: ""
-                }
+                },
+                lab: lab
             }
         }).then(res =>  {
                 axios({
@@ -202,11 +189,16 @@ const EnrollForm = () => {
                         onChange={handleCheck}
                     />
                 </div>
+                <Checkbox
+                    name="lab"
+                    label="Lab?"
+                    checked={lab}
+                    onChange={handleCheck}
+                />
+                <br />
                 <CustomButton type="submit">Add Course</CustomButton>
                 <br/>
             </form>
-            <br/>
-            <button onClick={() => setFormData(fakeState)}>Fill form</button>
 
             <Alert 
                 isOpen={success}

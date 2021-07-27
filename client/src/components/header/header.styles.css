@@ -1,10 +1,15 @@
 .header{
+    position: fixed;
+    width: 100vw;
     height: 10vh;
+    box-sizing: border-box;
     background: -webkit-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); 
     background: -moz-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); background: linear-gradient(360deg, #1C1C1C 10%, #494949 360%);
     padding: 0 2.5vw;
     display: flex;
     justify-content: space-between;
+    z-index: 2000;
+    border-bottom: 1px solid rgba(240, 240, 240, 0.2);
 }
 
 .logo-container{
@@ -12,8 +17,9 @@
     display: flex;
     align-items: center;
     color: var(--white);
-    font-family: Righteous;
-    letter-spacing: 0.15em;
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.05em;
 }
 
 .logo-container .link{
@@ -43,9 +49,20 @@
     transition: 0.1s ease-in-out;
 }
 
-.profile-pic{
-    height: 80%;
+.profile-pic-container{
+    height: 100%;
     width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.profile-pic{
+    height: 70%;
     border-radius: 50%;
     cursor: pointer;
 }
