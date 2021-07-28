@@ -43,6 +43,25 @@ router.get('/user', auth, (req, res) => {
         .then(user => res.send(user))
 })
 
+// @route       GET auth/exp
+// @desc        Get token expiration time
+// @access      Public
+router.get('/exp', (req, res) => {
+    const token = req.cookies.token;
+
+    if(!token){
+        res.status(401).json({msg: "Access denied. No token provided"})
+    }
+    try{
+        const decodedUser = jwt.verify(token, process.env.JWT_SECRET)
+        let exp = decodedUser.exp
+        res.send(exp - Date.now()/1000)
+    }catch(err){
+        res.clearCookie("token")
+        res.status(400).send("Token is not valid")
+    }
+})
+
 // @route       GET auth/logout
 // @desc        Logout user
 // @access      Public
@@ -85,26 +104,12 @@ router.get('/groupme/callback', async (req, res) => {
         })
         .catch(err => console.log(err))
 
-    //Update course with the corresponding group me data
-    // await axios({
-    //     method: "PUT",
-    //     url: `http://localhost:8080/api/courses/${course._id}`,
-    //     data: {
-    //         groupme: {
-    //             id: groupmeId,
-    //             share_url: groupmeLink
-    //         }
-    //     }
-    // })
-    //     .catch(err => console.log(err))
-
     await Course.findByIdAndUpdate(course._id, {
         groupme: {
             id: groupmeId,
             share_url: groupmeLink
         }
     })
-        .then(updatedCourse => res.send(updatedCourse))
         .catch(err => res.send(err))
 
     res.redirect(`${getBaseUrl()}/course?id=${course._id}`)

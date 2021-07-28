@@ -4,6 +4,7 @@ import { UserContext } from '../../App'
 import Video from '../../assets/nashvilleflyover.mp4'
 
 import CustomButton from '../../components/custom-button/custom-buttom.component'
+import ContactForm from '../../components/contact-form/contact-form.component'
 import {Link as Anchor} from 'react-scroll'
 
 const HomePage = () => {
@@ -38,9 +39,9 @@ const HomePage = () => {
                 <h1>ABOUT</h1>
             </div>
             <div className="page" id="contact">
-                <h1>CONTACT</h1>
+                <ContactForm/>
             </div>
-            <video autoPlay={true} preload loop muted id="nash-video">
+            <video autoPlay={true} preload="auto" loop muted id="nash-video">
                 <source src={Video} type="video/mp4"/>
             </video>
         </div>
