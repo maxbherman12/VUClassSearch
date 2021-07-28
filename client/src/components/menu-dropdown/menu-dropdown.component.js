@@ -9,7 +9,7 @@ const MenuDropdown = ({handleClick}) => (
         <MenuItem link="/myprofile">Profile</MenuItem>
         <MenuItem link="/schedule">My Schedule</MenuItem>
         <MenuItem link="/enroll">Add courses</MenuItem>
-        <MenuItem link="http://localhost:8080/auth/logout" atag>Sign Out</MenuItem>
+        <MenuItem link="https://vuclasssearch.herokuapp.com/auth/logout" atag>Sign Out</MenuItem>
     </div>
 )
 

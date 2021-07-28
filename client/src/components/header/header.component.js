@@ -25,7 +25,7 @@ const Header = ({user}) => {
                     <figcaption>{'Menu \u25bc'}</figcaption>
                 </figure>
                 :
-                <a href="http://localhost:8080/auth/google" className="link">Sign In With Google</a>
+                <a href="https://vuclasssearch.herokuapp.com/auth/google" className="link">Sign In With Google</a>
             }
             {
                 open ?
