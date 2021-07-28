@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const getBaseUrl = require('../middleware/getBaseUrl')
 
 const passport = require('passport')
 const passportLocalMongoose = require("passport-local-mongoose");
@@ -69,7 +70,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:8080/auth/google/callback",
+    callbackURL: `${getBaseUrl()}/auth/google/callback`,
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {

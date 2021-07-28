@@ -22,7 +22,7 @@ router.get("/google",
 // @desc        Creates JSON web token for user and redirects back to homepage
 // @access      Public
 router.get("/google/callback",
-    passport.authenticate("google", { failureRedirect: {getBaseUrl()} }), (req, res) => {
+    passport.authenticate("google", { failureRedirect: `${getBaseUrl()}`}), (req, res) => {
         let minsToExp = 90;
       
         let token = jwt.sign({
