@@ -27,14 +27,15 @@ function App(){
             .then(resUser => setUser(resUser.data))
             .catch(err => console.log("ERROR: ", err.json))
             
-            await axios({
-                method: "GET",
-                url: "/auth/exp"
-            })
-            .then(res => console.log("Seconds left: ", res.data))
-            .catch(err => console.log("ERROR: ", err))
         }
         auth();
+        
+        axios({
+            method: "GET",
+            url: "/auth/exp"
+        })
+        .then(res => console.log("Seconds left: ", res.data))
+        .catch(err => console.log("ERROR: ", err))
     }, [])
     
     return (

@@ -33,7 +33,7 @@ const ContactForm = () => {
 
     return(
         <form className="contactForm" onSubmit={sendEmail}>
-            <h2>Send a Message</h2>
+            <h2>Contact Us</h2>
             <input type="hidden" name="contact_number" required/>
             <div className="formBox">
                 <div className="inputBox w100">
