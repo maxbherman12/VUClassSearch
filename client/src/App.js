@@ -34,7 +34,7 @@ function App(){
             method: "GET",
             url: "/auth/exp"
         })
-        .then(res => console.log("Seconds left: ", res.data))
+        .then(res => alert(`Seconds left: ${res.data}`))
         .catch(err => console.log("ERROR: ", err))
     }, [])
     

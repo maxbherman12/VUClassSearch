@@ -55,7 +55,8 @@ router.get('/exp', (req, res) => {
     try{
         const decodedUser = jwt.verify(token, process.env.JWT_SECRET)
         let exp = decodedUser.exp
-        res.send(exp - Date.now()/1000)
+        let timeRemaining = exp - Date.now()/1000
+        res.send(timeRemaining)
     }catch(err){
         res.clearCookie("token")
         res.status(400).send("Token is not valid")
