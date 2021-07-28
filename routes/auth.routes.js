@@ -31,7 +31,8 @@ router.get("/google/callback",
         }, process.env.JWT_SECRET)
 
         res.cookie("token", token, {httpOnly:false})
-        res.redirect(`${getBaseUrl()}`)
+        // res.redirect(`${getBaseUrl()}`)
+        res.redirect(`http://localhost:3000`)
   }
 );
 
