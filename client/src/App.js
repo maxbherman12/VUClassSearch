@@ -12,30 +12,25 @@ import HomePage from './pages/home/home.page'
 import SchedulePage from './pages/schedule/schedule.page';
 
 import Header from './components/header/header.component'
+import YesNoDialog from './components/yes-no-dialog/yes-no-dialog.component';
 
 export const UserContext = createContext(null)
 
 function App(){
     const [user, setUser] = useState(null)
+    const [openDialog, setOpenDialog] = useState(false)
 
     useEffect(() => {
-        async function auth() {
-            await axios({
-                method: "GET",
-                url: "/auth/user"
-            })
-            .then(resUser => setUser(resUser.data))
-            .catch(err => console.log("ERROR: ", err.json))
-            
-        }
-        auth();
-        
         axios({
             method: "GET",
-            url: "/auth/exp"
+            url: "/auth/user"
         })
-        .then(res => alert(`Seconds left: ${res.data}`))
-        .catch(err => console.log("ERROR: ", err))
+        .then(resUser => {
+            setUser(resUser.data)
+            setTimeout(() => setOpenDialog(true), 60000) //give user 1 minutes until notification
+        })
+        .catch(err => console.log("ERROR: ", err.json))
+
     }, [])
     
     return (
@@ -52,6 +47,12 @@ function App(){
                         <Route path="/schedule" component={() => user ? <SchedulePage/> : <Redirect to="/"/>}></Route>
                     </UserContext.Provider>
                 </Switch>
+                <YesNoDialog
+                    message={`Are you still here? Click \"Yes\" to continue your session or \"No\" to be logged out`} 
+                    open={openDialog}
+                    handleClose={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/logout'}
+                    handleYes={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/google'}
+                />
             </div>
         </div>
     );

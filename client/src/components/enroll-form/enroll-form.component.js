@@ -32,7 +32,7 @@ const EnrollForm = () => {
 
     const {setUser} = useContext(UserContext);
     const [openError, setOpenError] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [openSuccess, setOpenSuccess] = useState(false);
     const [alertMessage, setAlertMessage] = useState("Alert");
 
     const openAlert = (message, alertDuration, func) => {
@@ -83,8 +83,8 @@ const EnrollForm = () => {
                     url: `/api/users/push2schedule/${res.data._id}`
                 })
                     .then(async resp => {
-                        // await openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenError)
-                        alert(`Successfully addded ${formatCourseStr(res.data)} to schedule`)
+                        await openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenSuccess)
+                        // alert(`Successfully addded ${formatCourseStr(res.data)} to schedule`)
                         setFormData(courseNullState)
                         setUser(resp.data)
                     })
@@ -201,9 +201,9 @@ const EnrollForm = () => {
             </form>
 
             <Alert 
-                isOpen={success}
+                isOpen={openSuccess}
                 severity="success"
-                handleClose={() => setSuccess()}
+                handleClose={() => setOpenSuccess()}
             >
                 {alertMessage}
             </Alert>
