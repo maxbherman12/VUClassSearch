@@ -44,7 +44,7 @@ router.post('/', auth, async (req, res) => {
         }
 
         let newStudentsList = newCourse.students;
-        newStudentsList.push(req.user)
+        newStudentsList.push(req.user.user)
 
         //update course student list to contain user
         Course.findByIdAndUpdate(newCourse._id, {students: newStudentsList})

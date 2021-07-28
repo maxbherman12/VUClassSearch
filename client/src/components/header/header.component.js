@@ -13,7 +13,6 @@ const Header = ({user}) => {
     <div className="header">
         <div className="logo-container" onClick={() => animateScroll.scrollToTop({duration: 1})}>
             <Link className="link" to="/">
-                {/* <h1>VUClassSearch</h1> */}
                 <h1>VUClassSearch</h1>
             </Link>
         </div>

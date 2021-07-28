@@ -11,7 +11,7 @@ function auth(req, res, next){
     }
     try{
         const decodedUser = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = decodedUser.user
+        req.user = decodedUser
         next()
     }catch(err){
         res.clearCookie("token")
