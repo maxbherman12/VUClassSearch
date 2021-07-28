@@ -1,7 +1,13 @@
-const Course = require('../models/course.model')
+const Course    = require('../models/course.model')
+const fs        = require('fs')
 
-//write a helper function to get all the different departments
-const depts = ["CS", "CSET", "MATH"]
+const getDepartmentArray = () => {
+    let data = fs.readFileSync('./files/departments.txt')
+    data = data.toString();
+    return data.split('\n')
+}
+
+const depts = getDepartmentArray();
 
 const validateCourse = async json => {
     let exists;
