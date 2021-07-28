@@ -83,8 +83,8 @@ const EnrollForm = () => {
                     url: `/api/users/push2schedule/${res.data._id}`
                 })
                     .then(async resp => {
-                        await openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenSuccess)
-                        // alert(`Successfully addded ${formatCourseStr(res.data)} to schedule`)
+                        // await openAlert(`Successfully addded ${formatCourseStr(res.data)} to schedule`, 4000, setOpenSuccess)
+                        alert(`Successfully addded ${formatCourseStr(res.data)} to schedule`)
                         setFormData(courseNullState)
                         setUser(resp.data)
                     })
