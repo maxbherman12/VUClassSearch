@@ -24,21 +24,18 @@ function App(){
                 method: "GET",
                 url: "/auth/user"
             })
-            .then(res => {
-                setUser(res.user)
-                alert(res.exp)
-            })
+            .then(resUser => setUser(resUser.data))
             .catch(err => console.log("ERROR: ", err.json))
             
         }
         auth();
         
-        // axios({
-        //     method: "GET",
-        //     url: "/auth/exp"
-        // })
-        // .then(res => alert(`Seconds left: ${res.data}`))
-        // .catch(err => console.log("ERROR: ", err))
+        axios({
+            method: "GET",
+            url: "/auth/exp"
+        })
+        .then(res => alert(`Seconds left: ${res.data}`))
+        .catch(err => console.log("ERROR: ", err))
     }, [])
     
     return (

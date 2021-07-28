@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 //allow cross origin resource sharing
-app.use(cors({credentials: true}))
+app.use(cors({credentials: true, origin: `${getBaseUrl()}`}))
 
 //use routes
 const authRoutes        = require('./routes/auth.routes')

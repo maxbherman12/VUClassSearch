@@ -27,11 +27,12 @@ router.get("/google/callback",
       
         let token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (minsToExp * 60),
-            user: req.user.user
+            user: req.user
         }, process.env.JWT_SECRET)
 
         res.cookie("token", token, {httpOnly:false})
-        res.redirect(`${getBaseUrl()}`)
+        // res.redirect(`${getBaseUrl()}`)
+        res.redirect(`http://localhost:3000`)
   }
 );
 
@@ -39,11 +40,8 @@ router.get("/google/callback",
 // @desc        Get user data
 // @access      Private
 router.get('/user', auth, (req, res) => {
-    User.findById(req.user.user._id)
-        .then(user => res.json({
-            user: user,
-            exp: req.user.exp
-        }))
+    User.findById(req.user._id)
+        .then(user => res.send(user))
 })
 
 // @route       GET auth/exp

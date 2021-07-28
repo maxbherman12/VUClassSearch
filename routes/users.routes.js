@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 // @desc        Update a user by id
 // @access      Public
 router.put('/', auth, (req, res) => {
-    User.findByIdAndUpdate(req.user.user._id, req.body)
+    User.findByIdAndUpdate(req.user._id, req.body)
         .then(updatedUser => res.send(updatedUser))
         .catch(err => res.status(401).send(err))
 })
@@ -57,7 +57,7 @@ router.put('/push2schedule/:courseId', auth, async (req, res) => {
         })
         .catch(err => res.send(err))
         
-        User.findByIdAndUpdate(req.user.user._id, {$push: {"schedule": courseToAdd}})
+        User.findByIdAndUpdate(req.user._id, {$push: {"schedule": courseToAdd}})
         .then(updatedUser => {
             res.send(updatedUser)
         })
@@ -74,14 +74,14 @@ router.put('/push2schedule/:courseId', auth, async (req, res) => {
 router.put('/unenroll/:courseId', auth, async (req, res) => {
     let updatedSchedule
 
-    await User.findById(req.user.user._id)
+    await User.findById(req.user._id)
         .then(user => updatedSchedule = user.schedule)
 
     let index = updatedSchedule.findIndex(el => el._id === req.params.courseId)
     if(index > -1){
         updatedSchedule.splice(index, 1)
 
-        User.findByIdAndUpdate(req.user.user._id, {schedule: updatedSchedule})
+        User.findByIdAndUpdate(req.user._id, {schedule: updatedSchedule})
             .then(updatedUser => {
                 res.send(updatedUser)
             })
@@ -97,7 +97,7 @@ router.put('/unenroll/:courseId', auth, async (req, res) => {
 router.put('/schedule/clear', auth, async (req, res) => {
     let updatedSchedule
 
-    await User.findById(req.user.user._id)
+    await User.findById(req.user._id)
         .then(user => updatedSchedule = user.schedule)
 
     let scheduleLength = updatedSchedule.length
@@ -105,7 +105,7 @@ router.put('/schedule/clear', auth, async (req, res) => {
         updatedSchedule.pop()
     }
 
-    User.findByIdAndUpdate(req.user.user._id, {schedule: updatedSchedule})
+    User.findByIdAndUpdate(req.user._id, {schedule: updatedSchedule})
             .then(updatedUser => {
                 res.send(updatedUser)
             })
@@ -116,7 +116,7 @@ router.put('/schedule/clear', auth, async (req, res) => {
 // @desc        Delete a user
 // @access      Private
 router.delete('/', auth, (req,res) => {
-    User.findByIdAndDelete(req.user.user._id)
+    User.findByIdAndDelete(req.user._id)
         .catch(err => res.status(404).send(err))
         .then(res.send(`Successfully deleted user ${req.params.id}`))
 })
