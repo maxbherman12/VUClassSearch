@@ -22,7 +22,7 @@ router.get("/google",
 // @desc        Creates JSON web token for user and redirects back to homepage
 // @access      Public
 router.get("/google/callback",
-    passport.authenticate("google", { failureRedirect: "http://localhost:3000" }), (req, res) => {
+    passport.authenticate("google", { failureRedirect: {getBaseUrl()} }), (req, res) => {
         let minsToExp = 90;
       
         let token = jwt.sign({
@@ -31,7 +31,7 @@ router.get("/google/callback",
         }, process.env.JWT_SECRET)
 
         res.cookie("token", token, {httpOnly:false})
-        res.redirect({getBaseUrl()})
+        res.redirect(`${getBaseUrl()}`)
   }
 );
 
@@ -48,7 +48,7 @@ router.get('/user', auth, (req, res) => {
 // @access      Public
 router.get("/logout", function(req, res){
     res.clearCookie("token");
-    res.redirect({getBaseUrl()});
+    res.redirect(`${getBaseUrl()}`);
 });
 
 // @route       POST auth/groupme
@@ -74,7 +74,7 @@ router.get('/groupme/callback', async (req, res) => {
         method: "POST",
         url: `https://api.groupme.com/v3/groups?token=${access_token}`,
         data: {
-            name: `${course.department} ${course.number} - ${course.professor}`,
+            name: `${course.department} ${course.number}${course.lab ? "L" : ""} - ${course.professor}`,
             description: `This is the course groupme for ${course.department} ${course.number}${course.lab ? "L" : ""}`,
             share: true
         }

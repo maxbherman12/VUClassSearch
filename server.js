@@ -5,8 +5,8 @@ const cors          = require('cors');
 const session       = require("express-session");
 const passport      = require("passport");
 const cookieParser  = require('cookie-parser')
-const jwt           = require('jsonwebtoken')
 const path          = require('path')
+const getBaseUrl    = require('./middleware/getBaseUrl')
 
 const app = express();
 
@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 //allow cross origin resource sharing
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
+app.use(cors({credentials: true, origin: `${getBaseUrl()}`}))
 
 //use routes
 const authRoutes        = require('./routes/auth.routes')
