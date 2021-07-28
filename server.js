@@ -6,6 +6,7 @@ const session       = require("express-session");
 const passport      = require("passport");
 const cookieParser  = require('cookie-parser')
 const jwt           = require('jsonwebtoken')
+const path          = require('path')
 
 const app = express();
 
@@ -47,6 +48,16 @@ const coursesRoutes     = require('./routes/courses.routes');
 app.use('/auth', authRoutes)
 app.use('/api/users', usersRoutes);
 app.use('/api/courses', coursesRoutes);
+
+//Serve static assets if in production
+if(process.env.NODE_ENV === "production")
+{
+    app.use(express.static('client/build'))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 //set port and listen
 const port = process.env.PORT || 8080;
