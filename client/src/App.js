@@ -27,7 +27,8 @@ function App(){
         })
         .then(resUser => {
             setUser(resUser.data)
-            setTimeout(() => setOpenDialog(true), 60000) //give user 1 minutes until notification
+            let minsToLogout = 45
+            setTimeout(() => setOpenDialog(true), minsToLogout*60000) //give user minsToLogout minutes until notification
         })
         .catch(err => console.log("ERROR: ", err.json))
 

@@ -16,7 +16,7 @@ const YesNoDialog = ({message, open, handleClose, handleYes}) => {
         <DialogTitle id="alert-dialog-title">{message}</DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            No
           </Button>
           <Button onClick={() => {
               handleYes();
