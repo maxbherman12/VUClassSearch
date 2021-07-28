@@ -1,11 +1,13 @@
-const express   = require('express')
-const router    = express.Router()
-const passport  = require('passport')
-const jwt       = require('jsonwebtoken')
-const dotenv    = require('dotenv')
-const auth      = require('../middleware/auth')
-const User      = require('../models/user.model')
-const axios     = require('axios')
+const express       = require('express')
+const router        = express.Router()
+const passport      = require('passport')
+const jwt           = require('jsonwebtoken')
+const dotenv        = require('dotenv')
+const auth          = require('../middleware/auth')
+const getBaseUrl    = require('../middleware/getBaseUrl')
+const User          = require('../models/user.model')
+const Course        = require('../models/course.model')
+const axios         = require('axios')
 
 dotenv.config()
 
@@ -29,7 +31,7 @@ router.get("/google/callback",
         }, process.env.JWT_SECRET)
 
         res.cookie("token", token, {httpOnly:false})
-        res.redirect('http://localhost:3000')
+        res.redirect({getBaseUrl()})
   }
 );
 
@@ -46,7 +48,7 @@ router.get('/user', auth, (req, res) => {
 // @access      Public
 router.get("/logout", function(req, res){
     res.clearCookie("token");
-    res.redirect("http://localhost:3000");
+    res.redirect({getBaseUrl()});
 });
 
 // @route       POST auth/groupme
@@ -73,7 +75,7 @@ router.get('/groupme/callback', async (req, res) => {
         url: `https://api.groupme.com/v3/groups?token=${access_token}`,
         data: {
             name: `${course.department} ${course.number} - ${course.professor}`,
-            description: `This is the course group me for ${course.department} ${course.number}`,
+            description: `This is the course groupme for ${course.department} ${course.number}${course.lab ? "L" : ""}`,
             share: true
         }
     })
@@ -84,19 +86,28 @@ router.get('/groupme/callback', async (req, res) => {
         .catch(err => console.log(err))
 
     //Update course with the corresponding group me data
-    await axios({
-        method: "PUT",
-        url: `http://localhost:8080/api/courses/${course._id}`,
-        data: {
-            groupme: {
-                id: groupmeId,
-                share_url: groupmeLink
-            }
+    // await axios({
+    //     method: "PUT",
+    //     url: `http://localhost:8080/api/courses/${course._id}`,
+    //     data: {
+    //         groupme: {
+    //             id: groupmeId,
+    //             share_url: groupmeLink
+    //         }
+    //     }
+    // })
+    //     .catch(err => console.log(err))
+
+    await Course.findByIdAndUpdate(course._id, {
+        groupme: {
+            id: groupmeId,
+            share_url: groupmeLink
         }
     })
-        .catch(err => console.log(err))
+        .then(updatedCourse => res.send(updatedCourse))
+        .catch(err => res.send(err))
 
-    res.redirect(`http://localhost:3000/course?id=${course._id}`)
+    res.redirect(`${getBaseUrl()}/course?id=${course._id}`)
 })
 
 module.exports = router;

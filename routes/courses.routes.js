@@ -1,7 +1,6 @@
 const express           = require('express');
 const router            = express.Router();
 const validateCourse    = require('../middleware/validateCourse')
-const getUserById       = require('../middleware/getUserById')
 const auth              = require('../middleware/auth')
 const Course            = require('../models/course.model');
 
