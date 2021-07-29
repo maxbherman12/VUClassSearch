@@ -30,6 +30,12 @@ export function formatDayStr(course) {
     if(course.sunday){
         dayStr += "Sun"
     }
+    if(course.firstHalfMod){
+        dayStr = "Mod I " + dayStr
+    }
+    if(course.secondHalfMod){
+        dayStr = "Mod II " + dayStr
+    }
     return dayStr;
 }
 

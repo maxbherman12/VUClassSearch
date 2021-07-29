@@ -11,8 +11,8 @@ const depts = getDepartmentArray();
 
 const validateCourse = async json => {
     let exists;
-    const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = json;
-    await Course.countDocuments({department: department, number: number, professor: professor, startTime: startTime}, 
+    const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday, lab, firstHalfMod, secondHalfMod} = json;
+    await Course.countDocuments({department: department, number: number, professor: professor, startTime: startTime, endTime: endTime, lab: lab, firstHalfMod: firstHalfMod, secondHaldMod: secondHalfMod}, 
             (err, count) => { exists = count > 0 })
 
     if(!depts.find(el => el == department)){

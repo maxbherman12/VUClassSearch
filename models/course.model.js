@@ -60,6 +60,14 @@ const CourseSchema = new Schema({
         type: Boolean,
         default: false
     },
+    firstHalfMod : {
+        type: Boolean,
+        default: false
+    },
+    secondHalfMod : {
+        type: Boolean,
+        default: false
+    },
     groupme: {
         id: String,
         share_url: String

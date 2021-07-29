@@ -29,7 +29,8 @@ const courseNullState = {
 
 const EnrollForm = () => {
     const [formData, setFormData] = useState(courseNullState)
-    const {department, number, professor, lab, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday} = formData
+    const {department, number, professor, lab, startTime, endTime, firstHalfMod, secondHalfMod,
+        monday, tuesday, wednesday, thursday, friday, saturday, sunday} = formData
 
     const {setUser} = useContext(UserContext);
     const [openError, setOpenError] = useState(false);
@@ -76,7 +77,9 @@ const EnrollForm = () => {
                     id: "",
                     share_url: ""
                 },
-                lab: lab
+                lab: lab,
+                firstHalfMod: firstHalfMod,
+                secondHalfMod: secondHalfMod
             }
         }).then(res =>  {
                 axios({
@@ -197,15 +200,27 @@ const EnrollForm = () => {
                         onChange={handleCheck}
                     />
                 </div>
-                <Checkbox
-                    name="lab"
-                    label="Lab?"
-                    checked={lab}
-                    onChange={handleCheck}
-                />
-                {/* <br /> */}
+                <div className="enroll-options">
+                    <Checkbox
+                        name="lab"
+                        label="Lab"
+                        checked={lab}
+                        onChange={handleCheck}
+                    />
+                    <Checkbox
+                        name="firstHalfMod"
+                        label="Half-term Module I"
+                        checked={firstHalfMod}
+                        onChange={handleCheck}
+                    />
+                    <Checkbox
+                        name="secondHalfMod"
+                        label="Half-term Module II"
+                        checked={secondHalfMod}
+                        onChange={handleCheck}
+                    />
+                </div>
                 <CustomButton type="submit">Add Course</CustomButton>
-                {/* <br/> */}
             </form>
 
             <Alert 

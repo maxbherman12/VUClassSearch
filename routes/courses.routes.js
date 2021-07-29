@@ -38,7 +38,7 @@ router.post('/', auth, async (req, res) => {
                 .catch(err => res.send(err))
         }
         else{
-            await Course.findOne({department: req.body.department, number: req.body.number, professor: req.body.professor, startTime: req.body.startTime})
+            await Course.findOne({department: req.body.department, number: req.body.number, professor: req.body.professor, startTime: req.body.startTime, endTime: req.body.endTime, lab: req.body.lab, firstHalfMod: req.body.firstHalfMod, secondHaldMod: req.body.secondHalfMod})
                 .then(course => newCourse = course)
                 .catch(err => res.send(err))
         }
