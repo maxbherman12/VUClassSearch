@@ -4,7 +4,6 @@ const getBaseUrl = require('../middleware/getBaseUrl')
 
 const passport = require('passport')
 const passportLocalMongoose = require("passport-local-mongoose");
-const findOrCreate = require("mongoose-findorcreate");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const UserSchema = new Schema({
@@ -54,7 +53,6 @@ const UserSchema = new Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
-UserSchema.plugin(findOrCreate);
 
 module.exports = User = mongoose.model('user', UserSchema);
 
@@ -84,5 +82,5 @@ passport.use(new GoogleStrategy({
         imgUrl: profile._json.picture
     }
 
-    User.findOrCreate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
+    User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
   }));

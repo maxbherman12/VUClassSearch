@@ -53,6 +53,13 @@
     justify-content: space-between;
 }
 
+.options{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 @media screen and (max-width: 400px){
     .enroll-form form{
         width: 80vw;
