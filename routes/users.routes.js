@@ -85,6 +85,16 @@ router.put('/unenroll/:courseId', auth, async (req, res) => {
             .then(updatedUser => {
                 res.send(updatedUser)
             })
+        
+        let updatedStudentList;
+        await Course.findById(req.params.courseId)
+            .then(course => updatedStudentList = course.students)
+        
+        let courseIdx = updatedStudentList.findIndex(el => el._id === req.user._id)
+        if(courseIdx > -1){
+            updatedStudentList.splice(courseIdx, 1)
+            Course.findByIdAndUpdate(req.params.courseId, )
+        }
     }
     else{
         res.status(400).send("This course does not exist in your schedule")
