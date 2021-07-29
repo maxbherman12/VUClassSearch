@@ -82,5 +82,5 @@ passport.use(new GoogleStrategy({
         imgUrl: profile._json.picture
     }
 
-    User.findOrCreate(newUser, (err, user) => cb(err, user));
+    User.findOrCreate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
   }));
