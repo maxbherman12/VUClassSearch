@@ -1,3 +1,5 @@
 .enroll-page{
-    padding: 5vh 30vw;
+    display: flex;
+    justify-content: center;
+    padding: 5vh 0;
 }

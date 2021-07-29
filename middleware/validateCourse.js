@@ -2,7 +2,7 @@ const Course    = require('../models/course.model')
 const fs        = require('fs')
 
 const getDepartmentArray = () => {
-    let data = fs.readFileSync('./departments.txt')
+    let data = fs.readFileSync('/Users/maxherman/Documents/Coding/VUClassSearch/middleware/departments.txt')
     data = data.toString();
     return data.split('\n')
 }

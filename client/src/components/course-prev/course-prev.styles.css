@@ -38,3 +38,18 @@
 .course-prev .remove-btn.disable{
     display: none;
 }
+
+@media screen and (max-width: 400px){
+    .course-prev .course-info{
+        width: 90%;
+        padding: 10px;
+    }
+
+    .course-prev .course-info.disable{
+        width: 100%;
+    }
+
+     .course-prev .remove-btn{
+         margin-left: 10px;
+     }
+}

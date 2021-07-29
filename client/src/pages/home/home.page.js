@@ -5,6 +5,7 @@ import Video from '../../assets/nashvilleflyover.mp4'
 
 import CustomButton from '../../components/custom-button/custom-buttom.component'
 import ContactForm from '../../components/contact-form/contact-form.component'
+import Gallery from '../../components/gallery/gallery.component'
 import {Link as Anchor} from 'react-scroll'
 
 const HomePage = () => {
@@ -36,7 +37,28 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="page" id="about">
-                <h1>ABOUT</h1>
+                <div className="about-text">
+                    <h2>About VUClassSearch</h2>
+                    <p>
+                        VUClassSearch is a web platform built to help connect Vanderbilt University students with their classmates.
+                    </p>
+                    <p>
+                        To get started, login with your Vanderbilt email and add a course to your schedule. Navigate to the course page and you will be able to see a list of students also enrolled in your section of that course. Furthermore, students can create or join a GroupMe for their course so that they can more easily communicate with their peers.
+                    </p>
+                    <p>Students can also view the schedules of other users (this can be toggled off in settings) to explore courses that students with similar interests are enrolled in.</p>
+                    <p>To report an issue or ask questions, please  
+                    <Anchor
+                        className="scroll-link"
+                        to='contact'
+                        smooth={true}
+                        duration={1000}
+                        offset={scrollOffset}
+                    >
+                    {" contact us!"}
+                    </Anchor></p>
+                    
+                </div>
+                <Gallery/>
             </div>
             <div className="page" id="contact">
                 <ContactForm/>

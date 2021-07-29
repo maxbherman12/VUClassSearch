@@ -34,7 +34,7 @@ const CoursePrev = ({course, allowDelete}) => {
 
     return(
         <div className="course-prev">
-            <Link className="course-info" to={`/course?id=${course._id}`}>
+            <Link className={`course-info ${allowDelete ? "" : "disable"}`} to={`/course?id=${course._id}`}>
                 <div className="course-prof">
                     <h3>{formatCourseStr(course)}</h3>
                     <p>{course.professor}</p>

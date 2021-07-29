@@ -27,6 +27,10 @@
     color: var(--white);
 }
 
+.link-container figure{
+    margin: 0;
+}
+
 .link-container{
     width: 25vw;
     display: flex;
@@ -69,4 +73,10 @@
 
 .profile-pic:hover{
     opacity: .9;
+}
+
+@media screen and (max-width: 400px){
+    .header{
+        font-size: 0.8em;
+    }
 }

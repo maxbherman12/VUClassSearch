@@ -17,6 +17,7 @@ const ProfilePage = () => {
             url: `/api/users/${userId}`
         })
             .then(res => setUser(res.data))
+            .catch(err => console.log(err))
     }, [])
 
     return(

@@ -66,4 +66,22 @@
 
 #bio{
     margin-top: 2vh;
+    white-space: pre-wrap;
+}
+
+@media screen and (max-width: 400px) {
+    .profile-page{
+        display: flex;
+        flex-direction: column;
+        font-size: 0.8em;
+    }
+
+    .profile-info{
+        font-size: 0.7em;
+    }
+
+    .profile-info img{
+        width: 100px;
+        height: 100px;
+    }
 }

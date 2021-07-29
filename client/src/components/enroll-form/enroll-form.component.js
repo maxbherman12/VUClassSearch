@@ -7,6 +7,7 @@ import {formatCourseStr, formatProfessor} from '../../utils/course.utils'
 
 import FormInput from '../form-input/form-input.component';
 import Checkbox from '../checkbox/checkbox.component';
+import CustomCheckbox from '../checkbox/checkbox.component';
 import CustomButton from '../custom-button/custom-buttom.component'
 import Alert from '../alert/alert.component'
 
@@ -97,53 +98,60 @@ const EnrollForm = () => {
         <div className="enroll-form">
             <h2>Add a course</h2>
             <form onSubmit={handleSubmit}>
-                <div className="course">
-                    <div className="course-input">
-                        <FormInput
-                            type="text"
-                            name="department"
-                            value={department}
-                            onChange={handleChange}
-                            label="Department Abr."
-                            required
-                        />
+                <div className="course-prof">
+
+                    <div className="course">
+                        <div className="course-input">
+                            <FormInput
+                                type="text"
+                                name="department"
+                                value={department}
+                                onChange={handleChange}
+                                label="Department Abr."
+                                required
+                            />
+                        </div>
+                        <div className="course-input">
+                            <FormInput
+                                type="number"
+                                name="number"
+                                value={number}
+                                onChange={handleChange}
+                                label="Course Number"
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="course-input">
-                        <FormInput
-                            type="number"
-                            name="number"
-                            value={number}
-                            onChange={handleChange}
-                            label="Course Number"
-                            required
-                        />
-                    </div>
+                    <FormInput
+                        type="text"
+                        name="professor"
+                        value={professor}
+                        onChange={handleChange}
+                        label="Professor Surname"
+                        required
+                    />
                 </div>
-                <FormInput
-                    type="text"
-                    name="professor"
-                    value={professor}
-                    onChange={handleChange}
-                    label="Professor Surname"
-                    required
-                />
                 <div className="time">
-                    <label htmlFor="startTime">Start Time: </label>
-                    <input 
-                        type="time"
-                        name="startTime"
-                        value={startTime}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label htmlFor="endTime">End Time: </label>
-                    <input 
-                        type="time"
-                        name="endTime"
-                        value={endTime}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="time-input">
+                        <label htmlFor="startTime">Start Time: </label>
+                        <input 
+                            type="time"
+                            name="startTime"
+                            value={startTime}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="time-input">
+                        <label htmlFor="endTime">End Time: </label>
+                        <input 
+                            type="time"
+                            name="endTime"
+                            value={endTime}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
                 <div className="days">
                     <Checkbox
@@ -195,9 +203,9 @@ const EnrollForm = () => {
                     checked={lab}
                     onChange={handleCheck}
                 />
-                <br />
+                {/* <br /> */}
                 <CustomButton type="submit">Add Course</CustomButton>
-                <br/>
+                {/* <br/> */}
             </form>
 
             <Alert 

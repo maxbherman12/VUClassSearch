@@ -3,10 +3,10 @@
     --focus-color: var(--yellow);
     min-width: 165px;
     width: auto;
-    height: 50px;
+    min-height: 50px;
     padding: 0 10px;
     letter-spacing: 0.5px;
-    line-height: 50px;
+    line-height: 20px;
     font-size: 15px;
     background-color: var(--main-color);
     color: var(--focus-color);
@@ -16,6 +16,7 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 5px;
     outline: none;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.2);

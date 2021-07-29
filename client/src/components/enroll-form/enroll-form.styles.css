@@ -1,3 +1,18 @@
+.enroll-form{
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.enroll-form form{
+    width: 45vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .enroll-form h2{
     text-decoration: underline;
 }
@@ -16,12 +31,36 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 5vh 0;
+}
+
+.time-input{
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-input input{
+    background-color: transparent;
+    border: 1px solid var(--dark-gray);
+    border-radius: 5px;
+    padding: 2px 5px;
 }
 
 .days{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 3vh;
+}
+
+@media screen and (max-width: 400px){
+    .enroll-form form{
+        width: 80vw;
+    }
+
+    .days{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 20px;
+    }
 }

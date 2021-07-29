@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/mmsteelee/VUClassSearch#readme",
   "dependencies": {
-    "@material-ui/lab": "^4.0.0-alpha.60",
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "cookie-parser": "^1.4.5",

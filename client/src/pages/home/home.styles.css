@@ -21,24 +21,49 @@
 
 #home{
     flex-direction: column;
-    /* background-color: red; */
 }
 
 #home h1{
     padding: 10px 20px;
-    background-color: var(--yellow);
+    background-color: var(--opac-yellow);
     border-radius: 5px;
 }
 
 #about{
-    /* background-color: greenyellow; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+
+#about .about-text{
+    background-color: var(--opac-yellow);
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#about .scroll-link{
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #contact{
-    /* background-color: blue; */
+
 }
 
 .btn-grp{
     display: flex;
     gap: 20px;
+}
+
+@media screen and (max-width: 400px) {
+    #about {
+        display: flex;
+        flex-direction: column;
+    }
 }

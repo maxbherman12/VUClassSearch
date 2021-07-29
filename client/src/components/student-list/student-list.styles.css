@@ -21,10 +21,22 @@
     color: black;
     border-radius: 10px;
     height: 40px;
+    text-align: center;
 }
 
 .student:hover{
     cursor: pointer;
     transform: scale(1.01);
     transition: 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 400px){
+    .student-list{
+        width: 85vw;
+    }
+
+    .students{
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 40px;
+    }
 }

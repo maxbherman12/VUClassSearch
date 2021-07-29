@@ -68,7 +68,7 @@ router.put('/:id', (req, res) => {
 // @route       DELETE api/courses/reset
 // @desc        Clear all courses from DB
 // @access      Public
-router.delete('/clear', (req, res) => {
+router.delete('/reset', (req, res) => {
     Course.deleteMany({})
         .then(resp => res.send({
             message: `Successfully deleted ${resp.deletedCount} record${resp.deletedCount != 1 ? "s" : ""}`

@@ -19,6 +19,7 @@ body {
     --white: #f0f0f0;
     --dark-gray: #222222;
     --yellow: rgb(243, 231, 65);
+    --opac-yellow: rgba(243, 231, 65, 0.9);
 }
 
 body::-webkit-scrollbar{

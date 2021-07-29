@@ -4,15 +4,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: var(--yellow);
-    opacity: 0.8;
+    background-color: var(--opac-yellow);
     margin: 0;
     border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
     border-right: rgba(0, 0, 0, 0.1) 1px solid;
 }
 
 .menu-item:hover{
-    opacity: 0.95;
+    background-color: var(--yellow);
 }
 
 .menu-link{
