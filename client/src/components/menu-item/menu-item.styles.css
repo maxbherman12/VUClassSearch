@@ -11,7 +11,7 @@
 }
 
 .menu-item:hover{
-    background-color: var(--yellow);
+    background-color: var(--hover-yellow);
 }
 
 .menu-link{

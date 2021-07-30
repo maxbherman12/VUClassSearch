@@ -28,3 +28,9 @@
       background-color: var(--focus-color);
       color: var(--main-color);
 }
+
+.custom-button.sm{
+    min-height: 45px;
+    min-width: 130px;
+    font-size: 12px;
+}

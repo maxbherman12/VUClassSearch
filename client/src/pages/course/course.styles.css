@@ -37,11 +37,13 @@
     }
 
     .course-header .course-prof{
+        width: 80%;
         text-align: center;
         order: 1;
     }
 
     .course-header .date-time{
+        width: 80%;
         align-items: center;
         order: 2;
     }

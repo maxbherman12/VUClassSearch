@@ -7,7 +7,6 @@ import {formatCourseStr, formatProfessor} from '../../utils/course.utils'
 
 import FormInput from '../form-input/form-input.component';
 import Checkbox from '../checkbox/checkbox.component';
-import CustomCheckbox from '../checkbox/checkbox.component';
 import CustomButton from '../custom-button/custom-buttom.component'
 import Alert from '../alert/alert.component'
 

@@ -63,7 +63,7 @@ function App(){
                     </Switch>
                 }
                 <YesNoDialog
-                    message={`Are you still here? Click \"Yes\" to continue your session or \"No\" to be logged out`} 
+                    message={`Are you still here? Click "Yes" to continue your session or "No" to be logged out`} 
                     open={openDialog}
                     handleClose={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/logout'}
                     handleYes={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/google'}

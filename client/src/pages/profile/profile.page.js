@@ -37,7 +37,7 @@ const ProfilePage = () => {
                             }
                             {
                                 user.bio ?
-                                <p id="bio"><strong>Bio: </strong>{user.bio}</p>
+                                <p id="bio"><strong>Bio: <br/></strong>{user.bio}</p>
                                 : null
                             }
                         </div>

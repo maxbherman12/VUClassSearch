@@ -20,6 +20,7 @@ body {
     --dark-gray: #222222;
     --yellow: rgb(243, 231, 65);
     --opac-yellow: rgba(243, 231, 65, 0.9);
+    --hover-yellow: rgb(233, 221, 55);
 }
 
 body::-webkit-scrollbar{

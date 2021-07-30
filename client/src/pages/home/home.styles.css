@@ -41,7 +41,7 @@
     box-sizing: border-box;
     padding: 20px;
     border-radius: 10px;
-    min-height: 60vh;
+    min-height: 65vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -65,5 +65,9 @@
     #about {
         display: flex;
         flex-direction: column;
+    }
+
+    #about .about-text{
+        min-height: 72vh;
     }
 }

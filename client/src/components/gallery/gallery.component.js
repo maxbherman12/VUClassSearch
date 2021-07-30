@@ -7,8 +7,12 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import SchedulePageImg from '../../assets/schedule-page-demo.png'
 import CoursePageImg from '../../assets/course-page-demo.png'
 import ProfilePageImg from '../../assets/profile-page-demo.png'
+import EnrollPageImg from '../../assets/enroll-page-demo.png'
 
 const images = [
+    {
+        original: EnrollPageImg
+    },
     {
         original: SchedulePageImg
     },

@@ -93,7 +93,8 @@ router.put('/unenroll/:courseId', auth, async (req, res) => {
         let courseIdx = updatedStudentList.findIndex(el => el._id === req.user._id)
         if(courseIdx > -1){
             updatedStudentList.splice(courseIdx, 1)
-            Course.findByIdAndUpdate(req.params.courseId, )
+            Course.findByIdAndUpdate(req.params.courseId, {students: updatedStudentList})
+                .catch(err => console.log(err))
         }
     }
     else{
@@ -106,12 +107,24 @@ router.put('/unenroll/:courseId', auth, async (req, res) => {
 // @access      Private
 router.put('/schedule/clear', auth, async (req, res) => {
     let updatedSchedule
-
     await User.findById(req.user._id)
         .then(user => updatedSchedule = user.schedule)
 
     let scheduleLength = updatedSchedule.length
     for(let i = 0; i < scheduleLength; ++i){
+        let updatedStudentList
+        let courseId = updatedSchedule[scheduleLength - 1 - i]._id
+
+        await Course.findById(courseId)
+            .then(course => updatedStudentList = course.students)
+        
+        let courseIdx = updatedStudentList.findIndex(el => el._id === req.user._id)
+        if(courseIdx > -1){
+            updatedStudentList.splice(courseIdx, 1)
+            Course.findByIdAndUpdate(courseId, {students: updatedStudentList})
+                .catch(err => console.log(err))
+        }
+        
         updatedSchedule.pop()
     }
 

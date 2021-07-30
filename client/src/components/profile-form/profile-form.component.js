@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './profile-form.styles.css'
 
 import {api as axios} from '../../utils/axios.utils'
+import {Link} from 'react-router-dom'
 
 import FormInput from '../form-input/form-input.component';
 import CustomTextArea from '../custom-textarea/custom-textarea.component';
@@ -37,11 +38,16 @@ const ProfileForm = ({user, setUser}) => {
     
     return(
         <div className="profile-form">
-            {
-                !editMode ?
-                <CustomButton onClick={() => setEditMode(true)}>Edit</CustomButton>
-                : null
-            }
+            <div className="btn-grp">
+                <Link to={`/profile?id=${user._id}`}>
+                    <CustomButton sm>View Profile</CustomButton>
+                </Link>
+                {
+                    !editMode ?
+                    <CustomButton sm onClick={() => setEditMode(true)}>Edit</CustomButton>
+                    : null
+                }
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <div className="half-input">
@@ -94,7 +100,7 @@ const ProfileForm = ({user, setUser}) => {
                 <br/>
                 {
                     editMode ? 
-                    <CustomButton type="submit">Save</CustomButton>
+                    <CustomButton sm type="submit">Save</CustomButton>
                     : null
                 }
             </form>

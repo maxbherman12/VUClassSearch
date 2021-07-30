@@ -1,6 +1,5 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import './home.styles.css'
-import { UserContext } from '../../App'
 import Video from '../../assets/nashvilleflyover.mp4'
 
 import CustomButton from '../../components/custom-button/custom-buttom.component'
@@ -9,7 +8,6 @@ import Gallery from '../../components/gallery/gallery.component'
 import {Link as Anchor} from 'react-scroll'
 
 const HomePage = () => {
-    const {user, setUser} = useContext(UserContext)
     const scrollOffset = -1*window.innerHeight*.1
 
     return(
@@ -40,10 +38,10 @@ const HomePage = () => {
                 <div className="about-text">
                     <h2>About VUClassSearch</h2>
                     <p>
-                        VUClassSearch is a web platform built to help connect Vanderbilt University students with their classmates.
+                        VUClassSearch is a web platform built to help connect Vanderbilt University students with their classmates. Our mission is to forge relationships between peers to increase the exposure of information pertinent to students' success. 
                     </p>
                     <p>
-                        To get started, login with your Vanderbilt email and add a course to your schedule. Navigate to the course page and you will be able to see a list of students also enrolled in your section of that course. Furthermore, students can create or join a GroupMe for their course so that they can more easily communicate with their peers.
+                        Students can register using their Vanderbilt email and begin by adding a course to their schedule. They may navigate to the course page for each of their classes where they will be able to see a list of students also enrolled in their section of that course. Furthermore, students can create or join a GroupMe for their course so that they may more easily communicate with their peers.
                     </p>
                     <p>Students can also view the schedules of other users (this can be toggled off in settings) to explore courses that students with similar interests are enrolled in.</p>
                     <p>To report an issue or ask questions, please  
