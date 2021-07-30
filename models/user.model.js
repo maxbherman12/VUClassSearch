@@ -73,7 +73,7 @@ passport.use(new GoogleStrategy({
     callbackURL: `${getBaseUrl(false)}/auth/google/callback`,
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
-  function(accessToken, refreshToken, profile, cb) {
+  async function(accessToken, refreshToken, profile, cb) {
     const newUser = {
         googleId: profile.id,
         email: profile._json.email,
@@ -81,6 +81,15 @@ passport.use(new GoogleStrategy({
         lastName: profile.name.familyName,
         imgUrl: profile._json.picture
     }
+    
+    let findUser;
+    await User.findOne({googleId: profile.id})
+        .then(res => findUser = res)
 
-    User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
+    if(!findUser){
+        User.create(newUser, (err, user) => cb(err, user))
+    }
+    else{
+        User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
+    }
   }));
