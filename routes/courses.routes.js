@@ -1,6 +1,7 @@
 const express           = require('express');
 const router            = express.Router();
 const validateCourse    = require('../middleware/validateCourse')
+const findCourse        = require('../middleware/findCourse')
 const auth              = require('../middleware/auth')
 const Course            = require('../models/course.model');
 
@@ -27,7 +28,6 @@ router.get('/:id', (req, res) => {
 // @access      Private
 router.post('/', auth, async (req, res) => {
     const validStr = await validateCourse(req.body);
-
     if(validStr === "valid" || validStr === "exists"){
         let newCourse;
 
@@ -38,9 +38,7 @@ router.post('/', auth, async (req, res) => {
                 .catch(err => res.send(err))
         }
         else{
-            await Course.findOne({department: req.body.department, number: req.body.number, professor: req.body.professor, startTime: req.body.startTime, endTime: req.body.endTime, lab: req.body.lab, firstHalfMod: req.body.firstHalfMod, secondHaldMod: req.body.secondHalfMod})
-                .then(course => newCourse = course)
-                .catch(err => res.send(err))
+            newCourse = await findCourse(req.body)
         }
 
         let newStudentsList = newCourse.students;

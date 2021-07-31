@@ -1,5 +1,6 @@
-const Course    = require('../models/course.model')
-const fs        = require('fs')
+const Course        = require('../models/course.model')
+const findCourse    = require('../middleware/findCourse')
+const fs            = require('fs')
 
 const getDepartmentArray = () => {
     let data = fs.readFileSync(`${__dirname}/departments.txt`)
@@ -10,9 +11,9 @@ const getDepartmentArray = () => {
 const depts = getDepartmentArray();
 
 const validateCourse = async json => {
-    let exists;
     const {department, number, professor, startTime, endTime, monday, tuesday, wednesday, thursday, friday, saturday, sunday, lab, firstHalfMod, secondHalfMod} = json;
-    await Course.countDocuments({department: department, number: number, professor: professor, startTime: startTime, endTime: endTime, lab: lab, firstHalfMod: firstHalfMod, secondHaldMod: secondHalfMod}, 
+
+    await Course.countDocuments({department: department, number: number, professor: professor, startTime: startTime, lab: lab, firstHalfMod: firstHalfMod}, 
             (err, count) => { exists = count > 0 })
 
     if(!depts.find(el => el == department)){
@@ -30,7 +31,7 @@ const validateCourse = async json => {
     else if(!(monday || tuesday || wednesday || thursday || friday || saturday || sunday)){
         return "You must select at least one day in which this course meets."
     }
-    else if(exists){
+    else if(findCourse(json)){
         return "exists"
     }
     else{
