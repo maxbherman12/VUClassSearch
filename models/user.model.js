@@ -8,6 +8,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require('mongoose-findorcreate')
 
 const UserSchema = new Schema({
+    username: String,
     firstName: String,
     lastName: String,
     email: String,
@@ -78,13 +79,14 @@ passport.use(new GoogleStrategy({
   async function(accessToken, refreshToken, profile, cb) {
     const newUser = {
         googleId: profile.id,
+        username: profile.displayName,
         email: profile._json.email,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
         imgUrl: profile._json.picture
     }
     
-    User.findOrCreate({googleId: profile.id}, newUser, (err, user) => cb(err, user))
+    User.findOrCreate({username: profile.displayName, googleId: profile.id}, newUser, (err, user) => cb(err, user))
     // let findUser;
     // await User.findOne({googleId: profile.id})
     //     .then(res => findUser = res)
