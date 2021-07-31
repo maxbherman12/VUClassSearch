@@ -5,6 +5,7 @@ const getBaseUrl = require('../middleware/getBaseUrl')
 const passport = require('passport')
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require('mongoose-findorcreate')
 
 const UserSchema = new Schema({
     firstName: String,
@@ -53,6 +54,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(findOrCreate);
 
 module.exports = User = mongoose.model('user', UserSchema);
 
@@ -82,14 +84,15 @@ passport.use(new GoogleStrategy({
         imgUrl: profile._json.picture
     }
     
-    let findUser;
-    await User.findOne({googleId: profile.id})
-        .then(res => findUser = res)
+    User.findOrCreate({googleId: profile.id}, newUser, (err, user) => cb(err, user))
+    // let findUser;
+    // await User.findOne({googleId: profile.id})
+    //     .then(res => findUser = res)
 
-    if(!findUser){
-        User.create(newUser, (err, user) => cb(err, user))
-    }
-    else{
-        User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
-    }
+    // if(!findUser){
+    //     User.create(newUser, (err, user) => cb(err, user))
+    // }
+    // else{
+    //     User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
+    // }
   }));
