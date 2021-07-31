@@ -6,6 +6,8 @@ import {animateScroll} from 'react-scroll'
 
 import MenuDropdown from '../menu-dropdown/menu-dropdown.component'
 
+import { getBaseUrlClient } from '../../utils/getBaseUrlClient'
+
 const Header = ({user}) => {
     const [open, setOpen] = useState(false);
 
@@ -25,7 +27,7 @@ const Header = ({user}) => {
                     <figcaption>{'Menu \u25bc'}</figcaption>
                 </figure>
                 :
-                <a href="https://vuclasssearch.herokuapp.com/auth/google" className="link">Sign In With Google</a>
+                <a href={`${getBaseUrlClient()}/auth/google`} className="link">Sign In With Google</a>
             }
             {
                 open ?

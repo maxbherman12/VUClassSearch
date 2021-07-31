@@ -15,6 +15,8 @@ import Header                                       from './components/header/he
 import LoadingAnimation                             from './components/loading-animation/loading-animation.component'
 import YesNoDialog                                  from './components/yes-no-dialog/yes-no-dialog.component';
 
+import {getBaseUrlClient}                             from './utils/getBaseUrlClient'
+
 
 export const UserContext = createContext(null)
 
@@ -65,8 +67,8 @@ function App(){
                 <YesNoDialog
                     message={`Are you still here? Click "Yes" to continue your session or "No" to be logged out`} 
                     open={openDialog}
-                    handleClose={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/logout'}
-                    handleYes={() => window.location.href = 'https://vuclasssearch.herokuapp.com/auth/google'}
+                    handleClose={() => window.location.href = `${getBaseUrlClient()}/auth/logout`}
+                    handleYes={() => window.location.href = `${getBaseUrlClient()}/auth/google`}
                 />
             </div>
         </div>

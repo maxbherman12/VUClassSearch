@@ -79,14 +79,14 @@ passport.use(new GoogleStrategy({
   async function(accessToken, refreshToken, profile, cb) {
     const newUser = {
         googleId: profile.id,
-        username: profile.displayName,
+        username: profile.id,
         email: profile._json.email,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
         imgUrl: profile._json.picture
     }
     
-    User.findOrCreate({username: profile.displayName, googleId: profile.id}, newUser, (err, user) => cb(err, user))
+    User.findOrCreate({username: profile.id, googleId: profile.id}, newUser, (err, user) => cb(err, user))
     // let findUser;
     // await User.findOne({googleId: profile.id})
     //     .then(res => findUser = res)
