@@ -30,7 +30,7 @@ router.post('/', auth, async (req, res) => {
     const validStr = await validateCourse(req.body);
     if(validStr === "valid" || validStr === "exists"){
         let newCourse;
-
+        
         //if new course, create one
         if(validStr === "valid"){
             await Course.create(req.body)

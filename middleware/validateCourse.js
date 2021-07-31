@@ -31,7 +31,7 @@ const validateCourse = async json => {
     else if(!(monday || tuesday || wednesday || thursday || friday || saturday || sunday)){
         return "You must select at least one day in which this course meets."
     }
-    else if(findCourse(json)){
+    else if(await findCourse(json) != null){
         return "exists"
     }
     else{
