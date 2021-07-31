@@ -86,15 +86,15 @@ passport.use(new GoogleStrategy({
         imgUrl: profile._json.picture
     }
     
-    User.findOrCreate({username: profile.id, googleId: profile.id}, newUser, (err, user) => cb(err, user))
-    // let findUser;
-    // await User.findOne({googleId: profile.id})
-    //     .then(res => findUser = res)
+    // User.findOrCreate({username: profile.id, googleId: profile.id}, newUser, (err, user) => cb(err, user))
+    let findUser;
+    await User.findOne({googleId: profile.id})
+        .then(res => findUser = res)
 
-    // if(!findUser){
-    //     User.create(newUser, (err, user) => cb(err, user))
-    // }
-    // else{
-    //     User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
-    // }
+    if(!findUser){
+        User.create(newUser, (err, user) => cb(err, user))
+    }
+    else{
+        User.findOneAndUpdate({googleId: profile.id}, newUser, (err, user) => cb(err, user));
+    }
   }));
