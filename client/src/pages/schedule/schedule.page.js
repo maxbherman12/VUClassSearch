@@ -32,7 +32,7 @@ const SchedulePage = () => {
                 user.schedule.length > 0 ?
                 <div className="schedule-container">
                     <h2>My Schedule</h2>
-                    <i>Click into each course to see more details</i>
+                    <i id="details-msg">Click into each course to see more details</i>
                     <Schedule courseList={user.schedule} edit/>
                 </div> 
                 :

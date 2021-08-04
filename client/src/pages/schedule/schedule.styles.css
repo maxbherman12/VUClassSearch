@@ -29,6 +29,11 @@
     margin-bottom: 5vh;
 }
 
+#details-msg{
+    position: relative;
+    top: 1vh;
+}
+
 @media screen and (max-width: 400px){
     .schedule-container{
         width: 90vw;

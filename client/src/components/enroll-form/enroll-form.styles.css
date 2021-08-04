@@ -76,4 +76,8 @@
         flex-direction: column;
         gap: 10px;
     }
+
+    .time input{
+        min-height: 20px;
+    }
 }
