@@ -48,6 +48,11 @@ const ProfilePage = () => {
                         <div className="profile-schedule-container">
                             <h2>Schedule</h2>
                             <Schedule courseList={user.schedule}/>
+                            {
+                                user.schedule.length === 0 ?
+                                <p>{`${user.firstName}'s schedule is currently empty`}</p>
+                                : null
+                            }
                         </div>
                     }
                 </div>

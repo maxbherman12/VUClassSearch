@@ -11,3 +11,5 @@ To help with the UI, many MaterialUI components and icons were used as well as t
 This site is hosted on heroku and can be visited at https://vuclasssearch.herokuapp.com/
 
 To get started, you must sign in with a valid Vanderbilt email address. Begin by adding a course to your schedule. You may then navigate to the course page where you will be able to see a list of students also enrolled in that section of the course. Furthermore, you can create or join a GroupMe for the course so that you can more easily communicate with your peers.
+
+Homepage video adapted from https://www.youtube.com/watch?v=QBnISkavbu4&ab_channel=BlueMantleFilms
