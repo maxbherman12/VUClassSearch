@@ -1,7 +1,7 @@
 {
   "name": "vuclasssearch",
   "version": "1.0.0",
-  "description": "Application to allow Vanderbilt students to view other students that will be in their classes",
+  "description": "VUClassSearch is a web platform built to connect Vanderbilt University students with their classmates",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmsteelee/VUClassSearch.git"
+    "url": "git+https://github.com/maxbherman12/VUClassSearch.git"
   },
   "author": "Max Herman",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mmsteelee/VUClassSearch/issues"
+    "url": "https://github.com/maxbherman12/VUClassSearch/issues"
   },
-  "homepage": "https://github.com/mmsteelee/VUClassSearch#readme",
+  "homepage": "https://github.com/maxbherman12/VUClassSearch#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
