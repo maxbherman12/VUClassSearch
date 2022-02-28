@@ -1,6 +1,6 @@
-const production = true;
+const production = false;
 
-const deployedUrl = "https://www.vuclasssearch.com"
+const deployedUrl = "https://vuclasssearch.herokuapp.com"
 
 export function getBaseUrlClient(){
     return production ? deployedUrl : "http://localhost:8080"
